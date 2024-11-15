@@ -1,0 +1,121 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+
+body {
+    background: url('../../assets/media/bg/bg.png');
+    backdrop-filter: blur(5px);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.logo-text {
+    font-family: "Cherry Bomb One", system-ui;
+    font-size: 35px;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    text-align: center;
+    margin-right: 10px;
+}
+
+#kt_header_mobile {
+    width: 100%;
+    border-radius: 10px;
+    background: rgba(220,220,220,0.5) !important;
+    backdrop-filter: blur(50px) !important;
+    transition: border-radius .3s;
+    border: 3px solid rgba(255, 255, 255, 1);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+#kt_aside {
+    border-radius: 10px 20px 20px 10px;
+    background: rgba(120,120,120,0.5) !important;
+    backdrop-filter: blur(50px) !important;
+    transition: border-radius .3s;
+    border: 3px solid rgba(255, 255, 255, 1);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.notification.status-false {
+    opacity: 0.5; /* Áp dụng hiệu ứng mờ cho các thông báo có status là false */
+}
+
+.nav-tabs {
+    display: flex;
+    flex-wrap: nowrap; /* Không cho phép tab bị gãy dòng */
+    white-space: nowrap; /* Đảm bảo tất cả các tab nằm trên một dòng */
+    -webkit-overflow-scrolling: touch; /* Cho phép cuộn mượt mà trên các thiết bị di động */
+    scrollbar-color: inherit;
+    scrollbar-width: inherit; /* Đặt độ rộng thanh cuộn nhỏ hơn trên Firefox */
+}
+
+.offcanvas-header-navs {
+    height: auto !important; /* Đặt chiều cao tự động để không gây ra cuộn dọc */
+}
+
+.nav-item {
+    flex: 0 0 auto; /* Mỗi tab có kích thước cố định và không co giãn */
+    text-align: center; /* Canh giữa văn bản của tab */
+}
+
+.nav-link {
+    white-space: nowrap; /* Tránh việc văn bản trong tab bị gãy dòng */
+}
+
+.nav-tabs::-webkit-scrollbar {
+    height: 8px; /* Chiều cao thanh cuộn ngang */
+}
+
+.nav-tabs::-webkit-scrollbar-thumb {
+    background-color: #888; /* Màu của thanh cuộn */
+    border-radius: 10px; /* Bo tròn góc */
+}
+
+    .nav-tabs::-webkit-scrollbar-thumb:hover {
+        background-color: #555; /* Màu thanh cuộn khi hover */
+    }
+
+.nav-tabs::-webkit-scrollbar-track {
+    background: #eee; /* Nền thanh cuộn */
+}
+
+.offcanvas.offcanvas-right {
+    right: -521px;
+}
+
+.menu-link .menu-text {
+    color: #000 !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    color: #fff !important;
+}
+
+#kt_content {
+    padding-top: 10%
+}
+
+#kt_wrapper {
+    padding-top: 0 !important
+}
+
+.menu-item {
+    height: 70px;
+}
+
+.menu-item:hover .menu-text {
+    color: #000 !important;
+}
+
+@media (max-width: 991.98px) {
+    #kt_header {
+        backdrop-filter: none !important;
+    }
+    body {
+        backdrop-filter: none !important;
+    }
+}
+
