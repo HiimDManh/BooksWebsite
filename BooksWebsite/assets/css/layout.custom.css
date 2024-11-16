@@ -1,7 +1,7 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
 
 body {
-    background: url('../../assets/media/bg/bg.png');
+    background: url('../../assets/media/bg/Web.jpg');
     backdrop-filter: blur(5px);
     background-position: center;
     background-size: cover;
@@ -109,6 +109,10 @@ body {
 .menu-item:hover .menu-text {
     color: #000 !important;
 }
+
+    .menu-item.menu-item-active .menu-text {
+        color: #000 !important; /* Replace with your desired color */
+    }
 
 @media (max-width: 991.98px) {
     #kt_header {

@@ -14,7 +14,7 @@
     <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
     <link href="~/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css">
     <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" href="~/assets/media/Logos/Logo-HP.png" />
+    <link rel="shortcut icon" href="~/assets/media/logo/logo.png" />
     <!--<!--end::Global Theme Styles
     Test
 
@@ -107,7 +107,7 @@
                     <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500" style="border-radius: 0 0 20px 0; background: none">
                         <!--begin::Menu Nav-->
                         <ul class="menu-nav">
-                            <li class="menu-item" aria-haspopup="true" id="dashboardBtn">
+                            <li class="menu-item" aria-haspopup="true" id="homePage">
                                 <a href="/" class="menu-link">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x menu-icon">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Home\Book-open.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -121,8 +121,8 @@
                                     <span class="menu-text">ĐỌC SÁCH</span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true" id="dashboardBtn">
-                                <a href="/" class="menu-link">
+                            <li class="menu-item" aria-haspopup="true" id="chattingRoom">
+                                <a href="/chat/index" class="menu-link">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x menu-icon">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Chat1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -135,8 +135,8 @@
                                     <span class="menu-text">PHÒNG CHAT</span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true" id="dashboardBtn">
-                                <a href="/" class="menu-link">
+                            <li class="menu-item" aria-haspopup="true" id="aiChatting">
+                                <a href="/aichatting/index" class="menu-link">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x menu-icon">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Shopping\Box2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -149,8 +149,8 @@
                                     <span class="menu-text">TRÒ CHUYỆN AI</span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true" id="dashboardBtn">
-                                <a href="/" class="menu-link">
+                            <li class="menu-item" aria-haspopup="true" id="blogPage">
+                                <a href="/blog/index" class="menu-link">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x menu-icon">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Shopping\Box1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -163,8 +163,8 @@
                                     <span class="menu-text">ĐẠI SỨ VĂN HOÁ ĐỌC</span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true" id="dashboardBtn">
-                                <a href="/" class="menu-link">
+                            <li class="menu-item" aria-haspopup="true" id="settingPage">
+                                <a href="/setting/index" class="menu-link">
                                     <span class="svg-icon svg-icon-primary svg-icon-2x menu-icon">
                                         <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Settings-2.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -184,7 +184,7 @@
                                 <img alt="Logo" src="~/assets/media/logo/logo.png" width="250" />
                             </a>
                         </div>
-                        
+
                         <!--end::Logo-->
                     </div>
                     <!--end::Menu Container-->
@@ -573,6 +573,7 @@
     </div>
 
     <script src="~/Scripts/jquery-3.7.0.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
     <script src="~/assets/plugins/global/plugins.bundle.js"></script>
     <script src="~/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>

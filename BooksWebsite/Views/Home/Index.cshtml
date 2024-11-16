@@ -1,33 +1,61 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Trang chủ";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<link href="~/assets/slick/slick-theme.css" rel="stylesheet" />
+<link href="~/assets/slick/slick.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/assets/css/slicknav.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Owl carousel -->
+<link rel="stylesheet" type="text/css" href="~/assets/css/owl.carousel.min.css">
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<div class="container mb-5 ">
+    <div class="row cta-info text-center mb-2" style="padding: 0 !important; width: 100%">
+        <h3 style="width: 100%; color: #000 !important">Sản phẩm của chúng tôi</h3>
     </div>
-</main>
+    <section class="autoplay ">
+        <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: block;">Previous</button>
+        <div>
+            <img src="http://placehold.it/350x300?text=1">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=2">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=3">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=4">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=5">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=6">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=7">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=8">
+        </div>
+        <div>
+            <img src="http://placehold.it/350x300?text=9">
+        </div>
+        <button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: block;">Next</button>
+    </section>
+</div>
+
+@section scripts{
+    <script src="~/assets/slick/slick.js"></script>
+    <script src="~/assets/slick/slick.min.js"></script>
+    <script src="~/assets/js/Home/home.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/jquery.slicknav.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.5.2/jquery-migrate.min.js" integrity="sha512-BzvgYEoHXuphX+g7B/laemJGYFdrq4fTKEo+B3PurSxstMZtwu28FHkPKXu6dSBCzbUWqz/rMv755nUwhjQypw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('#homePage').addClass('menu-item-active')
+        
+    </script>
+}
