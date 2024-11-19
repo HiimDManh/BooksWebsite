@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using BooksWebsite.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace BooksWebsite
@@ -8,6 +9,7 @@ namespace BooksWebsite
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            //filters.Add(new AuthorizeUserAttribute());
         }
     }
 }
