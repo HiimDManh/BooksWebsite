@@ -10,3 +10,20 @@ $("#kt_aside").on('resize', (event, data) => {
         $(".logo-text").attr("hidden", false);
     }
 });
+GetCurrrentUser()
+function GetCurrrentUser() {
+    $.ajax({
+        url: '/User/GetCurrentUser',
+        type: 'get',
+        success: function (data) {
+            if (data.code === 200) {
+                $('#accountCurrent').text(data.acc)
+            } else {
+
+            }
+        },
+        error: function () {
+
+        }
+    })
+}

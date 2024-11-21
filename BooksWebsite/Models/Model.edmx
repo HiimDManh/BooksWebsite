@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BookReadingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Sender" Type="nvarchar" MaxLength="50" />
+          <Property Name="Recipient" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusRead" Type="bit" />
+        </EntityType>
+        <EntityType Name="DetailGroupChat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdGroupChat" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
         <EntityType Name="DetailUser">
           <Key>
             <PropertyRef Name="id" />
@@ -13,6 +33,26 @@
           <Property Name="username" Type="nvarchar" MaxLength="50" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
           <Property Name="full_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GroupChat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameGroup" Type="nvarchar" MaxLength="250" />
+          <Property Name="LateTime" Type="datetime" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="MessageChat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDetailGroupChat" Type="int" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -32,7 +72,11 @@
           <Property Name="login_time" Type="datetime" />
         </EntityType>
         <EntityContainer Name="BookReadingModelStoreContainer">
+          <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailGroupChat" EntityType="Self.DetailGroupChat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailUser" EntityType="Self.DetailUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupChat" EntityType="Self.GroupChat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageChat" EntityType="Self.MessageChat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -44,6 +88,10 @@
           <EntitySet Name="DetailUsers" EntityType="BookReadingModel.DetailUser" />
           <EntitySet Name="Roles" EntityType="BookReadingModel.Role" />
           <EntitySet Name="Users" EntityType="BookReadingModel.User" />
+          <EntitySet Name="DetailGroupChats" EntityType="BookReadingModel.DetailGroupChat" />
+          <EntitySet Name="GroupChats" EntityType="BookReadingModel.GroupChat" />
+          <EntitySet Name="MessageChats" EntityType="BookReadingModel.MessageChat" />
+          <EntitySet Name="Chats" EntityType="BookReadingModel.Chat" />
         </EntityContainer>
         <EntityType Name="DetailUser">
           <Key>
@@ -70,6 +118,46 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="role" Type="Int32" Nullable="false" />
           <Property Name="login_time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DetailGroupChat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdGroupChat" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="GroupChat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameGroup" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LateTime" Type="DateTime" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MessageChat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDetailGroupChat" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Sender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Recipient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusRead" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -103,6 +191,50 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailGroupChats">
+            <EntityTypeMapping TypeName="BookReadingModel.DetailGroupChat">
+              <MappingFragment StoreEntitySet="DetailGroupChat">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IdGroupChat" ColumnName="IdGroupChat" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupChats">
+            <EntityTypeMapping TypeName="BookReadingModel.GroupChat">
+              <MappingFragment StoreEntitySet="GroupChat">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="LateTime" ColumnName="LateTime" />
+                <ScalarProperty Name="NameGroup" ColumnName="NameGroup" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageChats">
+            <EntityTypeMapping TypeName="BookReadingModel.MessageChat">
+              <MappingFragment StoreEntitySet="MessageChat">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="IdDetailGroupChat" ColumnName="IdDetailGroupChat" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chats">
+            <EntityTypeMapping TypeName="BookReadingModel.Chat">
+              <MappingFragment StoreEntitySet="Chat">
+                <ScalarProperty Name="StatusRead" ColumnName="StatusRead" />
+                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

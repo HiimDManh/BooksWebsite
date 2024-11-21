@@ -28,5 +28,9 @@ namespace BooksWebsite.Models
         public virtual DbSet<DetailUser> DetailUsers { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<DetailGroupChat> DetailGroupChats { get; set; }
+        public virtual DbSet<GroupChat> GroupChats { get; set; }
+        public virtual DbSet<MessageChat> MessageChats { get; set; }
+        public virtual DbSet<Chat> Chats { get; set; }
     }
 }
