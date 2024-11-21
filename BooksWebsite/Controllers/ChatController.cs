@@ -27,13 +27,18 @@ namespace BooksWebsite.Controllers
                 var data = db.Chats
                             .Where(m => m.Sender == user.username || m.Recipient == user.username) // Lọc tin nhắn của Tung
                             .GroupBy(m => m.Sender == user.username ? m.Recipient : m.Sender) // Gom nhóm theo user còn lại
-                            .Select(g => g.OrderByDescending(m => m.CreateDate).FirstOrDefault()) // Lấy tin nhắn gần nhất trong mỗi nhóm
-                            .Select(m => new
-                            {
-                                username = m.Sender == user.username ? m.Recipient : m.Sender,
-                                Message = m.Message,
-                                CreateDate = m.CreateDate
-                            })
+                                .Select(g => new
+                                {
+                                    LatestMessage = g.OrderByDescending(m => m.CreateDate).FirstOrDefault(), // Lấy tin nhắn gần nhất trong nhóm
+                                    UnreadCount = g.Count(m => m.Recipient == user.username && m.StatusRead == false) // Đếm số tin nhắn chưa đọc
+                                })
+                                .Select(g => new
+                                {
+                                    username = g.LatestMessage.Sender == user.username ? g.LatestMessage.Recipient : g.LatestMessage.Sender,
+                                    Message = g.LatestMessage.Message,
+                                    CreateDate = g.LatestMessage.CreateDate,
+                                    UnreadCount = g.UnreadCount
+                                })
                             .ToList()
                             .Select(x =>
                             {
@@ -43,7 +48,8 @@ namespace BooksWebsite.Controllers
                                 {
                                     username = x.username,
                                     Message=x.Message,
-                                    CreateDate=timeDifference.TotalMinutes
+                                    CreateDate=timeDifference.TotalMinutes,
+                                    UnreadCount = x.UnreadCount
                                 });
                             })
                             .ToList();
@@ -86,6 +92,25 @@ namespace BooksWebsite.Controllers
                                       });
                                   });
                 return Json(new { code = 200, data }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { code = 500, msg = "Sai !!!" + e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult ChangeStatusRead(string id)
+        {
+            try
+            {
+                var user = (User)Session["user"];
+                var status = db.Chats.Where(x=>x.Sender == id).ToList();
+                status.ForEach(x =>
+                {
+                    x.StatusRead = true;
+                });
+                db.SaveChanges();
+                return Json(new { code = 200, }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

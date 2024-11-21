@@ -313,6 +313,7 @@
                                 </div>
                                 <div class="d-flex flex-column align-items-end">
                                     <span class="text-muted font-weight-bold font-size-sm">${ Math.floor(v.CreateDate)} min</span>
+                                    <span class="label label-sm label-success">${v.UnreadCount}</span>
                                 </div>
                             </div>`
                         });
@@ -342,6 +343,10 @@
             var id = $(this).attr("data-id")
             recipientUsername = id;
             ShowInfoChat(id)
+            ChangeStatusRead(id)
+        })
+        $(document).on('click', '#khungChat', function () {
+            ChangeStatusRead(recipientUsername)
         })
         //hàm gọi danh sách tìm kiếm
         function SearchAccount(id) {
@@ -409,6 +414,20 @@
                     } else {
 
                     }
+                },
+                error: function () {
+
+                }
+            })
+        }
+        //hàm thay đổi trạng thái đã đọc đối với người liên hệ
+        function ChangeStatusRead(id) {
+            $.ajax({
+                url: '/Chat/ChangeStatusRead',
+                type: 'post',
+                data: { id },
+                success: function (data) {
+
                 },
                 error: function () {
 
