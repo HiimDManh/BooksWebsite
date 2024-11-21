@@ -1,0 +1,12 @@
+﻿#kt_chat_content {
+    max-height: 80vh;
+}
+
+#khungChat {
+    height: 100%;
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 100%;
+}

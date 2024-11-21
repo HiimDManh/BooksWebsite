@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\before_start.css" />
+    <Content Include="assets\css\chatbox.css" />
     <Content Include="assets\css\home.css" />
     <Content Include="assets\css\layout.custom.css" />
     <Content Include="assets\css\loading.css" />
