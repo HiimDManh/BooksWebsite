@@ -16,7 +16,12 @@ namespace BooksWebsite
         public void Main()
         {
             var server = new WebSocketServer("ws://0.0.0.0:8181");
-
+            var room = rooms.FirstOrDefault(r => r.RoomName == "NCCD");
+            if (room == null)
+            {
+                room = new Room { RoomName = "NCCD" };
+                rooms.Add(room);
+            }
             server.Start(socket =>
             {
                 UserConnection currentUser = null;
@@ -65,7 +70,7 @@ namespace BooksWebsite
 
                         case "JOIN_ROOM":
                             // Join a room (format: JOIN_ROOM|roomName)
-                            JoinRoom(currentUser, payload);
+                            JoinRoom(currentUser, "NCCD");
                             break;
 
                         case "LEAVE_ROOM":
@@ -93,7 +98,7 @@ namespace BooksWebsite
 
         static void SendPrivateMessage(UserConnection sender, string recipientUsername, string message)
         {
-            
+
             var recipient = db.Users.FirstOrDefault(u => u.username == recipientUsername);
             var rec = connectedUsers.FirstOrDefault(u => u.Username == recipientUsername);
             if (recipient != null)
@@ -113,7 +118,7 @@ namespace BooksWebsite
                 {
                     rec.Socket.Send($"PRIVATE_SENT|{recipientUsername}|{message}|{sender.Username}");
                 }
-                
+
             }
             else
             {
@@ -177,6 +182,17 @@ namespace BooksWebsite
 
         static void BroadcastRoomMessage(Room room, string sender, string message)
         {
+            if (sender != "SERVER")
+            {
+                MessageChat chat = new MessageChat()
+                {
+                    Message = message,
+                    CreateDate = DateTime.Now,
+                    IdUser = sender,
+                };
+                db.MessageChats.Add(chat);
+                db.SaveChanges();
+            }
             foreach (var user in room.Users)
             {
                 user.Socket.Send($"ROOM_MESSAGE|{room.RoomName}|{sender}|{message}");

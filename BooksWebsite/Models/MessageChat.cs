@@ -15,8 +15,9 @@ namespace BooksWebsite.Models
     public partial class MessageChat
     {
         public int Id { get; set; }
-        public Nullable<int> IdDetailGroupChat { get; set; }
+        public Nullable<int> IdGroupChat { get; set; }
         public string Message { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public string IdUser { get; set; }
     }
 }

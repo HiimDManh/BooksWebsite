@@ -23,7 +23,7 @@ namespace BooksWebsite.Controllers
                 if (!string.IsNullOrEmpty(id))
                 {
                     var ss = (User)Session["user"];
-                    var users = db.Users.Where(x => x.username.Contains(id) && x.username != ss.username).ToList();
+                    var users = db.Users.Where(x => x.username.Contains(id) && x.username != ss.username && (ss.role == 1 ? x.role == 2 : x.role == 1)).ToList();
                     var userMessages = users.Select(user =>
                     {
                         // Tìm tin nhắn cuối cùng của user trong bảng Chat
@@ -58,11 +58,11 @@ namespace BooksWebsite.Controllers
                      .ToList();
                     if (userMessages != null)
                     {
-                        return Json(new { code = 200,user= userMessages }, JsonRequestBehavior.AllowGet);
+                        return Json(new { code = 200, user = userMessages }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        return Json(new { code = 500, msg = "Người liên hệ không tồn tại" },JsonRequestBehavior.AllowGet);
+                        return Json(new { code = 500, msg = "Người liên hệ không tồn tại" }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else

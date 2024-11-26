@@ -8,10 +8,11 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     overflow: hidden;
+    font-family: Montserrat;
 }
 
 .logo-text {
-    font-family: Adigiana Extreme;
+    font-family: "Adigiana Extreme", system-ui;
     font-size: 35px;
     font-weight: 400;
     font-style: normal;

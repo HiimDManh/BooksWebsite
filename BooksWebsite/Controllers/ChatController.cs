@@ -18,6 +18,10 @@ namespace BooksWebsite.Controllers
         {
             return View();
         }
+        public ActionResult All()
+        {
+            return View();
+        }
         [HttpGet]
         public JsonResult ListChat()
         {
@@ -47,12 +51,13 @@ namespace BooksWebsite.Controllers
                                 return (new
                                 {
                                     username = x.username,
-                                    Message=x.Message,
-                                    CreateDate=timeDifference.TotalMinutes,
+                                    Message = x.Message,
+                                    CreateDate = timeDifference.TotalMinutes,
                                     UnreadCount = x.UnreadCount
                                 });
                             })
-                            .ToList();
+                            .ToList().OrderBy(x => x.CreateDate);
+
                 return Json(new { code = 200, data }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -77,7 +82,7 @@ namespace BooksWebsite.Controllers
                                      CreateDate = m.CreateDate,
                                      IsMyMessage = m.Sender == user.username
                                  })
-                                 .ToList()
+                                 .ToList().Take(200)
                                   .Select(x =>
                                   {
                                       // Tính toán chênh lệch thời gian sau khi truy vấn xong
@@ -98,13 +103,48 @@ namespace BooksWebsite.Controllers
                 return Json(new { code = 500, msg = "Sai !!!" + e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpGet]
+        public JsonResult InfoChatAll()
+        {
+            try
+            {
+                var user = (User)Session["user"];
+                var data = db.MessageChats
+                                 .OrderByDescending(m => m.CreateDate) // Sắp xếp theo thời gian gửi tin nhắn
+                                 .Select(m => new
+                                 {
+                                     Sender = m.IdUser,
+                                     Message = m.Message,
+                                     CreateDate = m.CreateDate,
+                                     IsMyMessage = m.IdUser == user.username
+                                 })
+                                 .ToList().Take(500)
+                                  .Select(x =>
+                                  {
+                                      // Tính toán chênh lệch thời gian sau khi truy vấn xong
+                                      var timeDifference = DateTime.Now - x.CreateDate.Value;
+                                      return (new
+                                      {
+                                          Sender = x.Sender,
+                                          Message = x.Message,
+                                          CreateDate = timeDifference.TotalMinutes,
+                                          IsMyMessage = x.Sender == user.username
+                                      });
+                                  });
+                return Json(new { code = 200, data }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { code = 500, msg = "Sai !!!" + e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         [HttpPost]
         public JsonResult ChangeStatusRead(string id)
         {
             try
             {
                 var user = (User)Session["user"];
-                var status = db.Chats.Where(x=>x.Sender == id).ToList();
+                var status = db.Chats.Where(x => x.Sender == id).ToList();
                 status.ForEach(x =>
                 {
                     x.StatusRead = true;
