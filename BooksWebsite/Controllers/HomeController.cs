@@ -28,5 +28,12 @@ namespace BooksWebsite.Controllers
 
             return View();
         }
+
+        public ActionResult Logout()
+        {
+            Session.Remove("user");
+            Session.Abandon();
+            return RedirectToAction("Login", "Login");
+        }
     }
 }

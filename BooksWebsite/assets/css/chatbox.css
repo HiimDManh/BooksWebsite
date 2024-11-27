@@ -1,5 +1,5 @@
 ﻿#kt_chat_content {
-    max-height: 80vh;
+    height: 80vh;
 }
 
 #khungChat {
@@ -9,4 +9,9 @@
 .scroll {
     overflow-y: scroll;
     height: 100%;
+}
+
+#chat-input {
+    font-size: 17px;
+    font-weight: 500;
 }

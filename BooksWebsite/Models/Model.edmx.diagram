@@ -5,13 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="066d1f7128204ab88a522a88db8a7f4e" Name="Diagram1">
-        <EntityTypeShape EntityType="BookReadingModel.Chat" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BookReadingModel.DetailGroupChat" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BookReadingModel.DetailUser" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="BookReadingModel.GroupChat" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="BookReadingModel.MessageChat" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BookReadingModel.Role" Width="1.5" PointX="4.75" PointY="3.75" />
-        <EntityTypeShape EntityType="BookReadingModel.User" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BookReadingModel.Answer" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BookReadingModel.Chat" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BookReadingModel.DetailGroupChat" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BookReadingModel.DetailUser" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BookReadingModel.GroupChat" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BookReadingModel.MessageChat" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BookReadingModel.Question" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BookReadingModel.Role" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="BookReadingModel.User" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="BookReadingModel.UserBehavior" Width="1.5" PointX="5.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

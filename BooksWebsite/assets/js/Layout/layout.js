@@ -27,6 +27,16 @@ function GetCurrrentUser() {
         }
     })
 }
+
+$(document).on({
+    ajaxStart: function () {
+        $("#wait").attr("hidden", false);
+    },
+    ajaxStop: function () {
+        $("#wait").attr("hidden", true);
+    }
+});
+
 toastr.options = {
     "closeButton": false,
     "debug": false,

@@ -236,6 +236,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Answer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Chat.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -266,10 +269,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Question.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserBehavior.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -442,6 +451,7 @@
     <Content Include="assets\js\slick.min.js" />
     <Content Include="assets\media\bg\bg.jpg" />
     <Content Include="assets\media\bg\bg.png" />
+    <Content Include="assets\media\bg\loading.gif" />
     <Content Include="assets\media\bg\login_bg.png" />
     <Content Include="assets\media\bg\lua_trai.jpg" />
     <Content Include="assets\media\bg\Web.jpg" />

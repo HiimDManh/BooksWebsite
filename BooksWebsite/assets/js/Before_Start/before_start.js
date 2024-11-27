@@ -29,6 +29,16 @@ function previous_page() {
     }
 }
 
+function getUserAnswer(id) {
+    var num = Number(id)
+    $.ajax({
+        /*  url: host+'/Account/loginapi',*/
+        url: '/BeforeStart/SetBehaviour',
+        type: 'post',
+        data: { ID: num },
+    });
+}
+
 $(document).ready(() => {
     $("#nextBtn").on("click", () => {        
         next_page();
@@ -38,30 +48,97 @@ $(document).ready(() => {
         previous_page();
     });
 
-    $(".answer-container").on('click', () => {
-        if (page < 4)
-            next_page();
-        else {
-            Swal.fire({
-                allowOutsideClick: false,
-                text: "Xác nhận hoàn thành?",
-                icon: "question",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Xác nhận",
-                cancelButtonText: "Huỷ",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-danger"
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/";
-                }
-                else {
-                    Swal.close();
-                }
-            });
-        }
-    })
+    
+});
+
+var Inittialization = function() {
+    var QnA = function () {
+        $.ajax({
+            /*  url: host+'/Account/loginapi',*/
+            url: '/BeforeStart/GetQnA',
+            type: 'Get',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                data.question.forEach((e, i) => {
+                    var div = ``;
+                    var id = e.ID;
+                    div += `<div class="page-question-child">
+                                <div class="mascot-container2">
+                                    <img class="mascot-second" alt="mascot1" src="/assets/media/mascot/book1.png" />
+                                    <div class="question-container">
+                                        <label class="question">${e.Description}</label>
+                                    </div>
+                                </div>
+                                <div class="answer">`
+                    data.answer.forEach((e, i) => {
+                        if (e.QuestionID == id) {
+                            div += `<div class="answer-container" value="${e.ID}">
+                                        <div class="question-container">
+                                            <label class="question">${e.Description}</label>
+                                        </div>
+                                    </div>`
+                        }
+                    })
+                    div += `</div></div>`
+                    $(".page-question").append(div)
+                })                
+            },
+            error: function () {
+                swal.fire({
+                    title: "Có lỗi!",
+                    text: "Bạn Không Được Phép Đăng Nhập",
+                    icon: "error",
+                    heightAuto: false,
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn font-weight-bold btn-light-primary"
+                    }
+                }).then(function () {
+                    KTUtil.scrollTop();
+                });
+            }
+        })
+
+        $(document).on('click', '.answer-container', function () {
+            if (page < 4) {
+                next_page();
+                getUserAnswer($(this).attr("value"));
+            }
+            else {
+                getUserAnswer($(this).attr("value"));
+                Swal.fire({
+                    allowOutsideClick: false,
+                    text: "Xác nhận hoàn thành?",
+                    icon: "question",
+                    buttonsStyling: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Xác nhận",
+                    cancelButtonText: "Huỷ",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-danger"
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/";
+                    }
+                    else {
+                        Swal.close();
+                    }
+                });
+            }
+        })
+    }
+
+    return {
+        init: function () {
+            QnA();
+        },
+    }
+}();
+
+jQuery(document).ready(function () {
+    Inittialization.init();
 });

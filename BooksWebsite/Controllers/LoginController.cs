@@ -107,7 +107,7 @@ namespace BooksWebsite.Controllers
                         newUser.login_time = DateTime.Now;
                         newUser.password = ToMD5(pass);
                         newUser.username = user;
-                        if (check.Any() && check == "on")
+                        if (check != null)
                             newUser.role = 2;
                         else newUser.role = 1;
                         db.Users.Add(newUser);
