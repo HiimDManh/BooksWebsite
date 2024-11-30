@@ -27,9 +27,9 @@ $(document).on('ready', function () {
         ]
     });
     $('.autoplay').slick({
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
     });
 });

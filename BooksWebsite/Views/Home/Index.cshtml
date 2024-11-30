@@ -9,41 +9,78 @@
 <!-- Owl carousel -->
 <link rel="stylesheet" type="text/css" href="~/assets/css/owl.carousel.min.css">
 
-<div class="container mb-5 ">
-    <div class="row cta-info text-center mb-2" style="padding: 0 !important; width: 100%">
-        <h3 style="width: 100%; color: #000 !important">Sản phẩm của chúng tôi</h3>
+<div class="container">
+    <div class="for-you-container">
+        <div class="row cta-info text-center mb-2" style="padding: 0 !important; width: 100%">
+            <h3 class="for-you-header">Dành cho bạn</h3>
+        </div>
+        <section class="autoplay">
+            <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: block;">Previous</button>
+            <div>
+                <img src="https://vietjack.me/storage/uploads/images/1/1-1725438592.png">
+            </div>
+            <div>
+                <img src="https://sachcanhdieu.vn/wp-content/uploads/2024/05/K12HO008-420x599.jpg">
+            </div>
+            <div>
+                <img src="https://product.hstatic.net/200000343833/product/z5796347887510_e36c537547d5955023340c21ce480866_9acc80213eba4753a9b75d50af0f77f9_master.jpg">
+            </div>
+            <div>
+                <img src="https://product.hstatic.net/200000343833/product/z5796560404053_b8e36782b0361349eb6b5835d566b2b8_b8acdb1f36dc430681b1b257a966e720_master.jpg">
+            </div>
+            <div>
+                <img src="http://placehold.it/350x300?text=5">
+            </div>
+            <div>
+                <img src="http://placehold.it/350x300?text=6">
+            </div>
+            <div>
+                <img src="http://placehold.it/350x300?text=7">
+            </div>
+            <div>
+                <img src="http://placehold.it/350x300?text=8">
+            </div>
+            <div>
+                <img src="http://placehold.it/350x300?text=9">
+            </div>
+            <button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: block;">Next</button>
+        </section>
     </div>
-    <section class="autoplay ">
-        <button class="slick-prev slick-arrow" aria-label="Previous" type="button" style="display: block;">Previous</button>
-        <div>
-            <img src="http://placehold.it/350x300?text=1">
+    <div class="on-reading-container">
+        <div class="row cta-info text-center" style="padding: 0 !important; width: 100%">
+            <h3 class="for-you-header">sách đang đọc</h3>
         </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=2">
+        <div class="on-reading-list mt-5 row">
+            <div class="col-6">
+                <div class="on-reading-item ">
+                    <img src="https://vietjack.me/storage/uploads/images/1/1-1725438592.png">
+                    <h4>hihihihihihi</h4>
+                    <div class="item-container">
+                        <div class="outer">
+                            <div class="inner">
+                                <div id="number">
+                                    65%
+                                </div>
+                            </div>
+                        </div>
+                        <svg id="svg-box" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                            <defs>
+                                <linearGradient id="GradientColor">
+
+                                    <stop offset="0%" stop-color="#DA22FF" />
+
+                                    <stop offset="100%" stop-color="#9733EE" />
+
+                                </linearGradient>
+                            </defs>
+                            <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=3">
-        </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=4">
-        </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=5">
-        </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=6">
-        </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=7">
-        </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=8">
-        </div>
-        <div>
-            <img src="http://placehold.it/350x300?text=9">
-        </div>
-        <button class="slick-next slick-arrow" aria-label="Next" type="button" style="display: block;">Next</button>
-    </section>
+    </div>
 </div>
 
 @section scripts{
@@ -52,10 +89,11 @@
     <script src="~/assets/js/Home/home.js"></script>
     <script src="~/assets/js/owl.carousel.min.js"></script>
     <script src="~/assets/js/jquery.slicknav.js"></script>
+    <link href="~/assets/css/home.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.5.2/jquery-migrate.min.js" integrity="sha512-BzvgYEoHXuphX+g7B/laemJGYFdrq4fTKEo+B3PurSxstMZtwu28FHkPKXu6dSBCzbUWqz/rMv755nUwhjQypw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         $('#homePage').addClass('menu-item-active')
-        
+
     </script>
 }
