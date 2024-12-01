@@ -12,10 +12,9 @@ namespace BooksWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class Type
     {
         public int ID { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> AnsewerMapping { get; set; }
+        public string Type1 { get; set; }
     }
 }

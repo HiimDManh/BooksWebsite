@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BooksWebsite.Controllers
 {
-    [AuthorizeUser]
+    //[AuthorizeUser]
     public class BeforeStartController : Controller
     {
         // GET: BeforeStart
@@ -23,8 +23,8 @@ namespace BooksWebsite.Controllers
         {
             try
             {
-                var questionList = _entities.Questions.ToList();
-                var answerList = _entities.Answers.ToList();
+                var questionList = _entities.Questions.OrderBy(x => x.ID).Take(6).ToList();
+                var answerList = _entities.Answers.OrderBy(x => x.ID).Take(23).ToList();
                 return Json(new { code = 200, question = questionList, answer = answerList }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -45,8 +45,15 @@ namespace BooksWebsite.Controllers
                     AnswerID = ID,
                 };
 
+                var nextQues = _entities.Questions.Where(x => x.AnsewerMapping == ID).FirstOrDefault();
+
                 _entities.UserBehaviors.Add(answer);
                 _entities.SaveChanges();
+                if (nextQues != null)
+                {
+                    var answerList = _entities.Answers.Where(x => x.QuestionID == nextQues.ID).ToList();
+                    return Json(new { code = 200, question = nextQues, answer = answerList, message = "Success" }, JsonRequestBehavior.AllowGet);
+                }
                 return Json(new { code = 200, message = "Success" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

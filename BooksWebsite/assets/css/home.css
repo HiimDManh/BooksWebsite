@@ -39,6 +39,15 @@
         transform: scale(1)
     }
 
+.on-reading-list {
+    gap: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
 .on-reading-item {
     display: flex;
     flex-direction: row;
@@ -47,10 +56,23 @@
     background: #fff;
     padding: 20px;
     border-radius: 20px;
+    gap: 20px;
+    min-width: 500px;
 }
+
+    .on-reading-item:hover {
+        cursor: pointer;
+        box-shadow: 5px 5px 20px rgba(255, 165, 0, 1);
+    }
 
 .on-reading-item img {
     width: 100px;
+}
+
+.book-name {
+    font-size: 20px;
+    font-weight: 500;
+    width: 40%;
 }
 
 .item-container {
@@ -103,5 +125,11 @@ circle {
 @keyframes anim {
     100% {
         stroke-dashoffset: 157.5;
+    }
+}
+
+@media (max-width: 1600px) {
+    .on-reading-list {
+        flex-wrap: wrap !important;
     }
 }

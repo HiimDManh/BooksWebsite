@@ -1,5 +1,8 @@
 ﻿"use strict"
 
+let number = document.getElementById("number");
+let counter = 0;
+
 $(document).on('ready', function () {
     $('.center').slick({
         centerMode: true,
@@ -29,7 +32,19 @@ $(document).on('ready', function () {
     $('.autoplay').slick({
         slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 2000,
     });
+
+    setInterval(() => {
+        if (counter == 65) {
+            clearInterval;
+        }
+        else {
+            counter += 1;
+            number.innerHTML = `${counter}%`;
+        }
+    }, 30);
 });
+
+

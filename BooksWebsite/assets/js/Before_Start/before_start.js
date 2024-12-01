@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 var page = 0;
+var quesCount = 0;
 
 function next_page() {
     page++;
@@ -8,7 +9,7 @@ function next_page() {
     if (page > 0) {
         $('.previous-btn').attr("hidden", false);
     }
-    if (page == 4) {
+    if (page == quesCount) {
         $(".submit-btn").attr("hidden", false);
         $(".next-btn").attr("hidden", true);
     }
@@ -20,7 +21,7 @@ function previous_page() {
         $('.previous-btn').attr("hidden", true);
     }
     $('.page-question').css('transform', `translateX(-${100 * page}vw)`);
-    if (page == 3) {
+    if (page == quesCount - 1) {
         $(".submit-btn").attr("hidden", true);
         $(".next-btn").attr("hidden", false);
     }
@@ -36,22 +37,58 @@ function getUserAnswer(id) {
         url: '/BeforeStart/SetBehaviour',
         type: 'post',
         data: { ID: num },
+        success: function (data) {
+            if (data.question != null) {
+                var div = ``;
+                var ques = data.question;
+                div += `<div class="page-question-child">
+                                <div class="mascot-container2">
+                                    <img class="mascot-second" alt="mascot1" src="/assets/media/mascot/book1.png" />
+                                    <div class="question-container">
+                                        <label class="question">${ques.Description}</label>
+                                    </div>
+                                </div>
+                                <div class="answer">`
+                data.answer.forEach((e, i) => {
+                    div += `<div class="answer-container" value="${e.ID}">
+                                        <div class="question-container">
+                                            <label class="question">${e.Description}</label>
+                                        </div>
+                                    </div>`
+                })
+                div += `</div></div>`
+                $(".page-question").append(div)
+            }
+        },
+        error: function (data) {
+            swal.fire({
+                title: "Có lỗi!",
+                text: data.message,
+                icon: "error",
+                heightAuto: false,
+                buttonsStyling: false,
+                confirmButtonText: "Ok!",
+                customClass: {
+                    confirmButton: "btn font-weight-bold btn-light-primary"
+                }
+            })
+        }
     });
 }
 
 $(document).ready(() => {
-    $("#nextBtn").on("click", () => {        
+    $("#nextBtn").on("click", () => {
         next_page();
-    });   
-    
+    });
+
     $("#previousBtn").on("click", () => {
         previous_page();
     });
 
-    
+
 });
 
-var Inittialization = function() {
+var Inittialization = function () {
     var QnA = function () {
         $.ajax({
             /*  url: host+'/Account/loginapi',*/
@@ -60,6 +97,7 @@ var Inittialization = function() {
             contentType: false,
             processData: false,
             success: function (data) {
+                quesCount = data.question.length;
                 data.question.forEach((e, i) => {
                     var div = ``;
                     var id = e.ID;
@@ -82,7 +120,7 @@ var Inittialization = function() {
                     })
                     div += `</div></div>`
                     $(".page-question").append(div)
-                })                
+                })
             },
             error: function () {
                 swal.fire({
@@ -102,7 +140,7 @@ var Inittialization = function() {
         })
 
         $(document).on('click', '.answer-container', function () {
-            if (page < 4) {
+            if (page < quesCount) {
                 next_page();
                 getUserAnswer($(this).attr("value"));
             }

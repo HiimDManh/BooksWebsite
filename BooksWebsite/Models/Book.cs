@@ -12,10 +12,14 @@ namespace BooksWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class Book
     {
         public int ID { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> AnsewerMapping { get; set; }
+        public string ReadingHref { get; set; }
+        public string Name { get; set; }
+        public int Type { get; set; }
+        public string RadioHref { get; set; }
+        public string CoverSrc { get; set; }
+        public Nullable<bool> IsBook { get; set; }
     }
 }
