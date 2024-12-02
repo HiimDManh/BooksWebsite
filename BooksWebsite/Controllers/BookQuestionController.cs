@@ -21,12 +21,12 @@ namespace BooksWebsite.Controllers
         {
             try
             {
-                var questionList = _entities.BookQuestions.Where(x => x.ID == ID).ToList();
-                var answerList = new List<Answer>();
+                var questionList = _entities.BookQuestions.Where(x => x.BookID == ID).ToList();
+                var answerList = new List<BookAnswer>();
                 foreach (var question in questionList)
                 {
                     var answer = _entities.BookAnswers.Where(x => x.QuestionID == question.ID).ToList();
-                    foreach (var ans in answerList)
+                    foreach (var ans in answer)
                     {
                         answerList.Add(ans);
                     }

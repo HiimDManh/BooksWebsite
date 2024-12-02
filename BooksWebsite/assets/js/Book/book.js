@@ -39,6 +39,10 @@ var Inittialization = function () {
             }
         })
 
+        $(document).on("click", "#answerBtn", function () {
+            window.location.href = "/BookQuestion/index" 
+        })
+
         //$("#bookHref").on("click", function () {
         //    window.location.href($(this).attr("value"))
         //});
