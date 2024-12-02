@@ -27,6 +27,8 @@ namespace BooksWebsite.Models
     
         public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<BookAnswer> BookAnswers { get; set; }
+        public virtual DbSet<BookQuestion> BookQuestions { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<DetailGroupChat> DetailGroupChats { get; set; }
         public virtual DbSet<DetailUser> DetailUsers { get; set; }
@@ -38,5 +40,6 @@ namespace BooksWebsite.Models
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserBehavior> UserBehaviors { get; set; }
+        public virtual DbSet<UserBookAnswer> UserBookAnswers { get; set; }
     }
 }

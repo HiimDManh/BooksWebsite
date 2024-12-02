@@ -32,7 +32,6 @@
 
 .slick-slide:hover {
     cursor: pointer;
-    
 }
 
     .slick-slide:hover img {
@@ -68,6 +67,7 @@
 .on-reading-item img {
     width: 100px;
 }
+
 
 .book-name {
     font-size: 20px;
@@ -120,6 +120,10 @@ circle {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.book-img {
+    height: 100%;
 }
 
 @keyframes anim {

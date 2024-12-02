@@ -110,7 +110,7 @@
 
 .page-question {
     height: 100vh;
-    width: 700vw;
+    width: 800vw;
     display: flex;
     flex-shrink: 0; /* Prevent shrinking */
     transition: transform 1s ease-in-out;

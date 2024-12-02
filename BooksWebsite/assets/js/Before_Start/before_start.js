@@ -9,8 +9,8 @@ function next_page() {
     if (page > 0) {
         $('.previous-btn').attr("hidden", false);
     }
-    if (page == quesCount) {
-        $(".submit-btn").attr("hidden", false);
+    if (page == quesCount - 1) {
+        //$(".submit-btn").attr("hidden", false);
         $(".next-btn").attr("hidden", true);
     }
 }
@@ -22,11 +22,14 @@ function previous_page() {
     }
     $('.page-question').css('transform', `translateX(-${100 * page}vw)`);
     if (page == quesCount - 1) {
-        $(".submit-btn").attr("hidden", true);
-        $(".next-btn").attr("hidden", false);
+        //$(".submit-btn").attr("hidden", true);
+        $(".next-btn").attr("hidden", true);
     }
     if (page > 0) {
         $('.previous-btn').attr("hidden", false);
+    }
+    if (page == quesCount-1 || page == quesCount) {
+        $(".page-question-child").last().remove();
     }
 }
 
@@ -58,6 +61,32 @@ function getUserAnswer(id) {
                 })
                 div += `</div></div>`
                 $(".page-question").append(div)
+                next_page();
+            }
+            else if (data.question == null &&  page >= quesCount - 1 ) {
+                Swal.fire({
+                    allowOutsideClick: false,
+                    text: "Xác nhận hoàn thành?",
+                    icon: "question",
+                    buttonsStyling: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Xác nhận",
+                    cancelButtonText: "Huỷ",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-danger"
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/";
+                    }
+                    else {
+                        Swal.close();
+                    }
+                });
+            }
+            else {
+                next_page();
             }
         },
         error: function (data) {
@@ -125,7 +154,7 @@ var Inittialization = function () {
             error: function () {
                 swal.fire({
                     title: "Có lỗi!",
-                    text: "Bạn Không Được Phép Đăng Nhập",
+                    text: "Bạn chưa đăng ký!",
                     icon: "error",
                     heightAuto: false,
                     buttonsStyling: false,
@@ -140,32 +169,11 @@ var Inittialization = function () {
         })
 
         $(document).on('click', '.answer-container', function () {
-            if (page < quesCount) {
+            if (page < quesCount - 1) {
                 next_page();
-                getUserAnswer($(this).attr("value"));
             }
             else {
                 getUserAnswer($(this).attr("value"));
-                Swal.fire({
-                    allowOutsideClick: false,
-                    text: "Xác nhận hoàn thành?",
-                    icon: "question",
-                    buttonsStyling: false,
-                    showCancelButton: true,
-                    confirmButtonText: "Xác nhận",
-                    cancelButtonText: "Huỷ",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: "btn btn-danger"
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "/";
-                    }
-                    else {
-                        Swal.close();
-                    }
-                });
             }
         })
     }

@@ -31,6 +31,7 @@ namespace BooksWebsite.Controllers
             {
                 return Json(new { code = 500, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+
         }
 
         [HttpPost]
@@ -39,16 +40,31 @@ namespace BooksWebsite.Controllers
             try
             {
                 var user = (User)Session["user"];
-                var answer = new UserBehavior
-                {
-                    UserID = user.id,
-                    AnswerID = ID,
-                };
 
+                var ans = _entities.Answers.Where(a => a.ID == ID).FirstOrDefault();
+                var ques = _entities.Questions.Where(q => q.ID == ans.QuestionID).FirstOrDefault();
                 var nextQues = _entities.Questions.Where(x => x.AnsewerMapping == ID).FirstOrDefault();
 
-                _entities.UserBehaviors.Add(answer);
-                _entities.SaveChanges();
+                var exist = _entities.UserBehaviors.Where(u => u.UserID == user.id && u.QuestionID == ques.ID).FirstOrDefault();
+
+                if(exist == null)
+                {
+                    var answer = new UserBehavior
+                    {
+                        UserID = user.id,
+                        AnswerID = ID,
+                        QuestionID = ques.ID,
+                    };
+
+                    _entities.UserBehaviors.Add(answer);
+                    _entities.SaveChanges();
+                }
+                else
+                {
+                    exist.AnswerID = ID;
+                    _entities.SaveChanges();
+                }
+                
                 if (nextQues != null)
                 {
                     var answerList = _entities.Answers.Where(x => x.QuestionID == nextQues.ID).ToList();

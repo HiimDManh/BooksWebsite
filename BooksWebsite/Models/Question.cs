@@ -17,5 +17,6 @@ namespace BooksWebsite.Models
         public int ID { get; set; }
         public string Description { get; set; }
         public Nullable<int> AnsewerMapping { get; set; }
+        public Nullable<int> Type { get; set; }
     }
 }

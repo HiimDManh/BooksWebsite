@@ -1,0 +1,59 @@
+﻿.form-group {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#book_name {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.book-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 100px;
+    width: 100%;
+}
+
+.book-img img{
+    width: 200px;
+}
+
+.select-direction {
+    
+}
+
+.space-between {
+    height: 50px;
+    background: none;
+}
+
+.button-form {
+    background: #EFA30A;
+    border: 2px solid #000;
+    height: 80px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-form:hover {
+    background: #fff;
+    cursor: pointer;
+}
+
+.button-form label {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+

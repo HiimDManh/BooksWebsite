@@ -12,6 +12,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="QuestionID" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -24,6 +25,24 @@
           <Property Name="RadioHref" Type="nvarchar(max)" />
           <Property Name="CoverSrc" Type="nvarchar(max)" />
           <Property Name="IsBook" Type="bit" />
+        </EntityType>
+        <EntityType Name="BookAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="Explain" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BookQuestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
@@ -90,6 +109,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AnsewerMapping" Type="int" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -122,10 +142,23 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="AnswerID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" />
+        </EntityType>
+        <EntityType Name="UserBookAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="BookID" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BookReadingModelStoreContainer">
           <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookAnswer" EntityType="Self.BookAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookQuestion" EntityType="Self.BookQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailGroupChat" EntityType="Self.DetailGroupChat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailUser" EntityType="Self.DetailUser" Schema="dbo" store:Type="Tables" />
@@ -137,6 +170,7 @@
           <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBehavior" EntityType="Self.UserBehavior" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBookAnswer" EntityType="Self.UserBookAnswer" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -145,6 +179,8 @@
         <EntityContainer Name="BookReadingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Answers" EntityType="BookReadingModel.Answer" />
           <EntitySet Name="Books" EntityType="BookReadingModel.Book" />
+          <EntitySet Name="BookAnswers" EntityType="BookReadingModel.BookAnswer" />
+          <EntitySet Name="BookQuestions" EntityType="BookReadingModel.BookQuestion" />
           <EntitySet Name="Chats" EntityType="BookReadingModel.Chat" />
           <EntitySet Name="DetailGroupChats" EntityType="BookReadingModel.DetailGroupChat" />
           <EntitySet Name="DetailUsers" EntityType="BookReadingModel.DetailUser" />
@@ -156,6 +192,7 @@
           <EntitySet Name="Types" EntityType="BookReadingModel.Type" />
           <EntitySet Name="Users" EntityType="BookReadingModel.User" />
           <EntitySet Name="UserBehaviors" EntityType="BookReadingModel.UserBehavior" />
+          <EntitySet Name="UserBookAnswers" EntityType="BookReadingModel.UserBookAnswer" />
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -164,6 +201,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="QuestionID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -176,6 +214,24 @@
           <Property Name="RadioHref" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CoverSrc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsBook" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BookAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="Explain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BookQuestion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
@@ -242,6 +298,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AnsewerMapping" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -274,6 +331,17 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="AnswerID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserBookAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="BookID" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -284,6 +352,7 @@
           <EntitySetMapping Name="Answers">
             <EntityTypeMapping TypeName="BookReadingModel.Answer">
               <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -299,6 +368,26 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ReadingHref" ColumnName="ReadingHref" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookAnswers">
+            <EntityTypeMapping TypeName="BookReadingModel.BookAnswer">
+              <MappingFragment StoreEntitySet="BookAnswer">
+                <ScalarProperty Name="Explain" ColumnName="Explain" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookQuestions">
+            <EntityTypeMapping TypeName="BookReadingModel.BookQuestion">
+              <MappingFragment StoreEntitySet="BookQuestion">
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -370,6 +459,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="BookReadingModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="AnsewerMapping" ColumnName="AnsewerMapping" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -406,8 +496,20 @@
           <EntitySetMapping Name="UserBehaviors">
             <EntityTypeMapping TypeName="BookReadingModel.UserBehavior">
               <MappingFragment StoreEntitySet="UserBehavior">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBookAnswers">
+            <EntityTypeMapping TypeName="BookReadingModel.UserBookAnswer">
+              <MappingFragment StoreEntitySet="UserBookAnswer">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

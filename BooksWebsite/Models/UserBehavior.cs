@@ -17,5 +17,6 @@ namespace BooksWebsite.Models
         public int ID { get; set; }
         public int UserID { get; set; }
         public int AnswerID { get; set; }
+        public Nullable<int> QuestionID { get; set; }
     }
 }

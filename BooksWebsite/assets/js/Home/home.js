@@ -2,8 +2,9 @@
 
 let number = document.getElementById("number");
 let counter = 0;
+let length = 0;
 
-$(document).on('ready', function () {
+function setSlick () {
     $('.center').slick({
         centerMode: true,
         centerPadding: '60px',
@@ -32,7 +33,7 @@ $(document).on('ready', function () {
     $('.autoplay').slick({
         slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
     });
 
@@ -45,6 +46,58 @@ $(document).on('ready', function () {
             number.innerHTML = `${counter}%`;
         }
     }, 30);
-});
+};
 
+var Inittialization = function () {
+    var Book = function () {
+        $.ajax({
+            /*  url: host+'/Account/loginapi',*/
+            url: '/Home/GetListBook',
+            type: 'Get',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                var div = ``;
+                data.book.forEach((e, i) => {
+                    var id = e.ID;
+                    div += `<div class="book-img" value="${id}">
+                                <img src="${e.CoverSrc}" alt="${e.Name}">
+                            </div>`
+                })
+                $(".autoplay").append(div);
+                setSlick();
+            },
+            error: function () {
+                swal.fire({
+                    title: "Có lỗi!",
+                    text: "Bạn chưa đăng ký!",
+                    icon: "error",
+                    heightAuto: false,
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn font-weight-bold btn-light-primary"
+                    }
+                }).then(function () {
+                    KTUtil.scrollTop();
+                });
+            }
+        })
+
+        $(document).on("click", ".slick-slide", function () {
+            localStorage.setItem("selectedBookId", $(this).attr("value"));
+            window.location.href = "/Book/Index";
+        });
+    }
+
+    return {
+        init: function () {
+            Book();
+        },
+    }
+}();
+
+jQuery(document).ready(function () {
+    Inittialization.init();
+});
 

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/assets/css/book.css" rel="stylesheet" />
+
+<div class="form-group pt-5 pl-5 pr-5">
+    <h3 id="book_name"></h3>
+    <div class="book-container row">
+        <div class="col-5 book-img">
+            <img id="img" />
+        </div>
+        <div class="col-7 select-direction">
+            <a class="button-form" id="bookHref" href="">
+                <label id="type-book">Đọc sách</label>
+            </a>
+            <div class="space-between"></div>
+            <div class="button-form">
+                <label id="answerBtn">Trả lời câu hỏi</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/assets/js/Book/book.js"></script>
+}
