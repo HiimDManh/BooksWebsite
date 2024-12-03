@@ -1,4 +1,5 @@
 ﻿using BooksWebsite.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,53 @@ namespace BooksWebsite.Controllers
                 }
 
                 return Json(new { code = 200, question = questionList, answer = answerList }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private class RequestData
+        {
+            public int QuestionID { get; set; }
+            public int AnswerID { get; set; }
+            public int BookID { get; set; }
+        }
+
+        [HttpPost]
+        public JsonResult SetBookAnswer(string data)
+        {
+            try
+            {
+                var user = (User)Session["user"];
+                var listAnswer = JsonConvert.DeserializeObject<List<RequestData>>(data);
+
+                foreach(var item in listAnswer)
+                {
+                    var answer = new UserBookAnswer
+                    {
+                        UserID = user.id,
+                        AnswerID = item.AnswerID,
+                        QuestionID = item.QuestionID,
+                        BookID = item.BookID,
+                    };
+
+                    var check = _entities.UserBookAnswers.Where(u => u.BookID == answer.BookID && u.UserID == answer.UserID && u.QuestionID == answer.QuestionID).FirstOrDefault();
+                    
+                    if(check == null)
+                    {
+                        _entities.UserBookAnswers.Add(answer);
+                    }
+                    else
+                    {
+                        check = answer;
+                    }
+                }
+
+                _entities.SaveChanges();
+
+                return Json(new { code = 200, message = "Thành công!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -66,5 +66,57 @@ namespace BooksWebsite.Controllers
                 return Json(new { code = 500, message = e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        private class ResponseData
+        {
+            public int ID { get; set; }
+            public string BookName { get; set; }
+            public string CoverHref { get; set; }
+            public int Percentage { get; set; }
+        }
+
+        [HttpGet]
+        public JsonResult GetOnReadingBook()
+        {
+            try
+            {
+                var user = (User)Session["user"];
+                var answerList = _entities.UserBookAnswers.Where(u => u.UserID == user.id).ToList();
+                var bookList = answerList.Select(x => x.BookID).Distinct().ToList();
+                var list = new List<ResponseData>();
+
+                foreach(var book in bookList)
+                {
+                    var sum = _entities.BookQuestions.Where(b => b.BookID == book).Count();
+                    var count = 0;
+                    foreach (var ans in answerList)
+                    {
+                        if(ans.BookID == book)
+                        {
+                            var check = _entities.BookQuestions.Where(b => b.ID == ans.QuestionID).FirstOrDefault();
+                            if (check.CorrectAnswer == ans.AnswerID)
+                            {
+                                count++;
+                            }
+                        }                        
+                    }
+                    var resBook = _entities.Books.Where(b => b.ID == book).FirstOrDefault();
+                    list.Add(new ResponseData
+                    {
+                        ID = book,
+                        BookName = resBook.Name,
+                        CoverHref = resBook.CoverSrc,
+                        Percentage = count / sum * 100,
+                    });
+                }
+                
+
+                return Json(new { code = 200, book = list }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { code = 500, message = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

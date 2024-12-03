@@ -101,7 +101,7 @@
     align-items: center;
 }
 
-#number {
+.number {
     font-weight: 600;
     color: #555;
     font-size: 35px;
@@ -116,7 +116,7 @@ circle {
     animation: anim 2s linear forwards;
 }
 
-#svg-box {
+.item-container svg {
     position: absolute;
     top: 0;
     left: 0;
@@ -126,11 +126,7 @@ circle {
     height: 100%;
 }
 
-@keyframes anim {
-    100% {
-        stroke-dashoffset: 157.5;
-    }
-}
+
 
 @media (max-width: 1600px) {
     .on-reading-list {
