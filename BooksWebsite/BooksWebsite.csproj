@@ -313,6 +313,7 @@
     <Content Include="assets\css\layout.custom.css" />
     <Content Include="assets\css\loading.css" />
     <Content Include="assets\css\login.css" />
+    <Content Include="assets\css\radio.css" />
     <Content Include="assets\css\style.bundle.css" />
     <Content Include="assets\css\blog.css" />
     <Content Include="assets\css\themes\layout\aside\dark.css" />
@@ -475,6 +476,7 @@
     <Content Include="assets\js\slick.min.js" />
     <Content Include="assets\media\bg\bg.jpg" />
     <Content Include="assets\media\bg\bg.png" />
+    <Content Include="assets\media\bg\bgBook.jpg" />
     <Content Include="assets\media\bg\loading.gif" />
     <Content Include="assets\media\bg\login_bg.png" />
     <Content Include="assets\media\bg\lua_trai.jpg" />

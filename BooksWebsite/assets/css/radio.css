@@ -1,57 +1,17 @@
-﻿.button-form {
-    background: #EFA30A;
-    border: 2px solid #000;
-    height: 80px;
-    width: 80%;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-    .button-form label {
-        color: #000;
-        font-size: 18px;
-        font-weight: 600;
-        text-align: center;
-    }
-
-.form-groupp {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-    margin-bottom: 50px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 30px;
-}
-
-#book_name {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-*,
+﻿*,
 *:after,
 *:before {
     box-sizing: border-box;
 }
 
-.question-text {
-    font-size: 20px !important;
-    font-weight: 600 !important;
-}
 
-.answer-container {
+form {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    padding-left: 10px;
 }
 
-.answer {
+label {
     display: flex;
     cursor: pointer;
     font-weight: 500;
@@ -60,33 +20,32 @@
     margin-bottom: 0.375em;
 }
 
-    .answer input {
+    label input {
         position: absolute;
         left: -9999px;
     }
 
-        .answer input:checked + span {
+        label input:checked + span {
             background-color: #d9d9f6; /* Example mix of white and primary color */
         }
 
-            .answer input:checked + span:before {
+            label input:checked + span:before {
                 box-shadow: inset 0 0 0 0.4375em #00005c; /* Primary color */
             }
 
-.answer-text {
+span {
     display: flex;
     align-items: center;
     padding: 0.375em 0.75em 0.375em 0.375em;
     border-radius: 99em;
     transition: 0.25s ease;
-    font-size: 16px !important;
 }
 
-    .answer-text:hover {
+    span:hover {
         background-color: #d9d9f6; /* Example mix of white and primary color */
     }
 
-    .answer-text:before {
+    span:before {
         display: flex;
         flex-shrink: 0;
         content: "";
@@ -99,9 +58,16 @@
         box-shadow: inset 0 0 0 0.125em #00005c; /* Primary color */
     }
 
-#submitBtn {
-    margin-top: 50px;
-}
-
 /* Codepen-specific styling - only to center the elements in the preview */
-
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}

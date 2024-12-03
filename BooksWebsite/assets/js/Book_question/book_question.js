@@ -14,21 +14,21 @@ var Inittialization = function () {
                 data.question.forEach((e, i) => {
                     var div = ``;
                     var id = e.ID;
-                    div += `<div class="book-container">
-                                <div class="button-form">
-                                    <label>${e.Description}</label>
-                                </div>
-                                <div class="answer-container row">`
+                    div += `<div class="form-group">
+                                <label class="question-text">${e.Description}</label>
+                                <form class="answer-container">`
                     data.answer.forEach((e, i) => {
                         if (e.QuestionID == id) {
-                            div += `<div class="answer-form">
-                                        <label>${e.Description}</label>
-                                    </div>`
+                            div += `<label class="answer" >
+                                        <input type="radio" name="radio" value="${e.ID}"/>
+                                        <span class="answer-text">${e.Description}</span>
+                                    </label>`
                         }
                     })
-                    div += `</div></div>`
-                    $(".form-group").append(div)
+                    div += `</form></div>`
+                    $(".form-groupp").append(div)
                 })
+                $(".form-groupp").append(`<a href="#" id="submitBtn" class="btn btn-success font-weight-bold btn-pill">Hoàn thành</a>`)
             },
             error: function () {
                 swal.fire({
@@ -47,19 +47,50 @@ var Inittialization = function () {
             }
         })
 
-        $(document).on('click', '.answer-container', function () {
-            if (page < quesCount - 1) {
-                next_page();
-            }
-            else {
-                getUserAnswer($(this).attr("value"));
+        
+    }
+
+    var Book = function () {
+        var num = Number(bookId)
+        $.ajax({
+            /*  url: host+'/Account/loginapi',*/
+            url: '/Book/GetBook',
+            type: 'Post',
+            data: { ID: num },
+            success: function (data) {
+                var item = data.book
+                $('#book_name').text(item.Name);
+            },
+            error: function (data) {
+                swal.fire({
+                    title: "Có lỗi!",
+                    text: data.message,
+                    icon: "error",
+                    heightAuto: false,
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn font-weight-bold btn-light-primary"
+                    }
+                }).then(function () {
+                    KTUtil.scrollTop();
+                });
             }
         })
+
+        $(document).on("click", "#answerBtn", function () {
+            window.location.href = "/BookQuestion/index"
+        })
+
+        //$("#bookHref").on("click", function () {
+        //    window.location.href($(this).attr("value"))
+        //});
     }
 
     return {
         init: function () {
             QnA();
+            Book();
         },
     }
 }();
