@@ -12,7 +12,7 @@ function Submit(result) {
         success: function (data) {
             swal.fire({
                 title: "Thành công",
-                text: data.message,
+                text: "Kết quả: " + data.count + "/" + data.sum,
                 icon: "success",
                 heightAuto: false,
                 buttonsStyling: false,

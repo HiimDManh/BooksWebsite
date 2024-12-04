@@ -55,6 +55,7 @@ namespace BooksWebsite.Controllers
             {
                 var user = (User)Session["user"];
                 var listAnswer = JsonConvert.DeserializeObject<List<RequestData>>(data);
+                var book = 0;
 
                 foreach(var item in listAnswer)
                 {
@@ -65,6 +66,8 @@ namespace BooksWebsite.Controllers
                         QuestionID = item.QuestionID,
                         BookID = item.BookID,
                     };
+
+                    book = answer.BookID;
 
                     var check = _entities.UserBookAnswers.Where(u => u.BookID == answer.BookID && u.UserID == answer.UserID && u.QuestionID == answer.QuestionID).FirstOrDefault();
                     
@@ -80,7 +83,22 @@ namespace BooksWebsite.Controllers
 
                 _entities.SaveChanges();
 
-                return Json(new { code = 200, message = "Thành công!" }, JsonRequestBehavior.AllowGet);
+                var answerList = _entities.UserBookAnswers.Where(u => u.UserID == user.id).ToList();
+                var sum = _entities.BookQuestions.Where(b => b.BookID == book).Count();
+                var count = 0;
+                foreach (var ans in answerList)
+                {
+                    if (ans.BookID == book)
+                    {
+                        var check = _entities.BookQuestions.Where(b => b.ID == ans.QuestionID).FirstOrDefault();
+                        if (check.CorrectAnswer == ans.AnswerID || check.CorrectAnswer == 0)
+                        {
+                            count++;
+                        }
+                    }
+                }
+
+                return Json(new { code = 200, sum = sum, count = count }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

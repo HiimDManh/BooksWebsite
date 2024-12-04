@@ -35,7 +35,7 @@ namespace BooksWebsite.Controllers
         {
             Session.Remove("user");
             Session.Abandon();
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpGet]
@@ -87,8 +87,8 @@ namespace BooksWebsite.Controllers
 
                 foreach(var book in bookList)
                 {
-                    var sum = _entities.BookQuestions.Where(b => b.BookID == book).Count();
-                    var count = 0;
+                    float sum = _entities.BookQuestions.Where(b => b.BookID == book).Count();
+                    float count = 0;
                     foreach (var ans in answerList)
                     {
                         if(ans.BookID == book)
@@ -106,7 +106,7 @@ namespace BooksWebsite.Controllers
                         ID = book,
                         BookName = resBook.Name,
                         CoverHref = resBook.CoverSrc,
-                        Percentage = count / sum * 100,
+                        Percentage = (int)(count / sum * 100),
                     });
                 }
                 

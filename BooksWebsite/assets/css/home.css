@@ -68,6 +68,23 @@
     width: 100px;
 }
 
+.qr-container {
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: -1000;
+}
+
+    .qr-container h4 {
+        text-align: center;
+    }
+
+    #qr {
+        width: 150px;
+    }
+
 
 .book-name {
     font-size: 20px;

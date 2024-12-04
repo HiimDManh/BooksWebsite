@@ -496,6 +496,7 @@
     <Content Include="assets\media\mascot\bubble-chat.png" />
     <Content Include="assets\media\plugins\jstree\32px.png" />
     <Content Include="assets\media\users\300_12.jpg" />
+    <Content Include="assets\media\users\qr_sach.jpg" />
     <Content Include="assets\plugins\custom\datatables\datatables.bundle.css" />
     <Content Include="assets\plugins\custom\datatables\datatables.bundle.js" />
     <Content Include="assets\plugins\custom\jstree\32px.png" />

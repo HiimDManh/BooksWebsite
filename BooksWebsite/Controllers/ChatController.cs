@@ -82,7 +82,7 @@ namespace BooksWebsite.Controllers
                                      CreateDate = m.CreateDate,
                                      IsMyMessage = m.Sender == user.username
                                  })
-                                 .ToList().Take(200)
+                                 .ToList().OrderBy(x => x.CreateDate).Take(200)
                                   .Select(x =>
                                   {
                                       // Tính toán chênh lệch thời gian sau khi truy vấn xong

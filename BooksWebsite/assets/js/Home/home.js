@@ -29,14 +29,19 @@ function setSlick () {
         ]
     });
     $('.autoplay').slick({
-        slidesToShow: 4,
+        slidesToShow: 3,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 2000,
     });
 
     
 };
+
+function BookPage(val) {
+    localStorage.setItem("selectedBookId", val);
+    window.location.href = "/Book/Index";
+}
 
 var Inittialization = function () {
     var Book = function () {
@@ -75,8 +80,7 @@ var Inittialization = function () {
         })
 
         $(document).on("click", ".slick-slide", function () {
-            localStorage.setItem("selectedBookId", $(this).attr("value"));
-            window.location.href = "/Book/Index";
+            BookPage($(this).attr("value"));
         });
     }
 
@@ -91,7 +95,7 @@ var Inittialization = function () {
                 console.log(data);
                 data.book.forEach((e) => {
                     var div = `<div class="col-6">
-                                    <div class="on-reading-item" id="${e.ID}">
+                                    <div class="on-reading-item" onclick="BookPage(${e.ID})" id="${e.ID}">
                                     <img src="${e.CoverHref}">
                                     <h4 class="book-name">${e.BookName}</h4>
                                     <div class="item-container">
@@ -119,7 +123,7 @@ var Inittialization = function () {
                             </div>`
                     $(".on-reading-list").append(div);
                     const element = document.getElementById("svg"+e.ID.toString());
-                    element.style.strokeDashoffset = (450 - (450 / (e.Percentage / 100))).toString();
+                    element.style.strokeDashoffset = (450 - (450 * e.Percentage / 100)).toString();
                     console.log(element)
 
                     var number = document.getElementById(`number${e.Percentage}`);
