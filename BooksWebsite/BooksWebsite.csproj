@@ -477,6 +477,10 @@
     <Content Include="assets\media\bg\bg.jpg" />
     <Content Include="assets\media\bg\bg.png" />
     <Content Include="assets\media\bg\bgBook.jpg" />
+    <Content Include="assets\media\bg\blo4.jpg" />
+    <Content Include="assets\media\bg\blog1.jpg" />
+    <Content Include="assets\media\bg\blog2.jpg" />
+    <Content Include="assets\media\bg\blog3.jpg" />
     <Content Include="assets\media\bg\loading.gif" />
     <Content Include="assets\media\bg\login_bg.png" />
     <Content Include="assets\media\bg\lua_trai.jpg" />
@@ -627,6 +631,8 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="assets\media\mascot\Thông tin liên quan đến cuộc thi đại sứ văn hóa đọc.docx" />
+    <Content Include="assets\media\mascot\The le Cuoc thi Dai su VHD 2024.pdf" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

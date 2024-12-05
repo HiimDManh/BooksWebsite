@@ -161,10 +161,11 @@
                         $('#listGroupChat').empty();
                         var div = ``;
                         $.each(data.data, function (k, v) {
+                            let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
                             div += `<div class="d-flex align-items-center justify-content-between mb-5" data-id="${v.username}" name="groupChat">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-circle symbol-50 mr-3">
-                                            <img alt="Pic" src="/assets/media/users/300_12.jpg" />
+                                            <img alt="Pic" src="${avatarUrl}" />
                                         </div>
                                         <div class="d-flex flex-column">
                                             <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
@@ -226,10 +227,11 @@
                         $('#listGroupChat').empty();
                         var div = ``;
                         $.each(data.user, function (k, v) {
+                            let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
                             div += `<div class="d-flex align-items-center justify-content-between mb-5" data-id="${v.username}" name="groupChat">
                                           <div class="d-flex align-items-center">
                                               <div class="symbol symbol-circle symbol-50 mr-3">
-                                                  <img alt="Pic" src="/assets/media/users/300_12.jpg" />
+                                                  <img alt="Pic" src="${avatarUrl}" />
                                               </div>
                                               <div class="d-flex flex-column">
                                                   <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
@@ -264,17 +266,19 @@
                         $('.messages').empty();
                         var div = ``;
                         $.each(data.data, function (k, v) {
+                            let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.Sender);
                             div += `<div class="d-flex flex-column mb-5 align-items-${(v.IsMyMessage ? `end` : `start`)}">
                                          <div class="d-flex align-items-center">
                                              <div class="symbol symbol-circle symbol-40 mr-3">
-                                                 <img alt="Pic" src="assets/media/users/300_12.jpg" />
+                                                 <img alt="Pic" src="${avatarUrl}" />
                                              </div>
                                              <div>
-                                                 <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${(v.IsMyMessage ? v.Sender : v.Recipient)} </a>
+                                                 <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${(v.Sender)} </a>
                                                  <span class="text-muted font-size-sm">${Math.floor(v.CreateDate)} min</span>
                                              </div>
                                          </div>
-                                         <div class="mt-2 rounded p-5 bg-light-${(v.IsMyMessage ? `success` : `primary`)} text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${v.Message}</div>
+                                         <div class="mt-2 rounded p-5 bg-light-${(v.IsMyMessage ? `success` : `warning`)} text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${v.Message}
+                                         </div>
                                      </div>`
                         });
                         $('.messages').append(div)

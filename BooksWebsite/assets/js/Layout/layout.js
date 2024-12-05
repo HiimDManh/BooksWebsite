@@ -11,6 +11,46 @@ $("#kt_aside").on('resize', (event, data) => {
     }
 });
 GetCurrrentUser()
+
+$(document).ready(function () {
+    // Handle form submission
+    $('#avatarForm').submit(function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Get the file input
+        var formData = new FormData();
+        var fileInput = $('#avatar')[0].files[0];
+
+        if (fileInput) {
+            formData.append('avatar', fileInput);
+
+            // AJAX request to upload the avatar
+            $.ajax({
+                url: '/home/ChangeAvatar', // Your POST API endpoint
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from processing data
+                contentType: false, // Prevent jQuery from overriding content-type
+                success: function (response) {
+                    alert('Avatar uploaded successfully!');
+
+                    // Fetch and display the uploaded avatar
+                    GetCurrrentUser();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error uploading avatar:', error);
+                },
+            });
+        } else {
+            alert('Please select a file to upload.');
+        }
+    });
+
+    // Function to fetch and display the uploaded avatar
+    
+});
+
+
 function GetCurrrentUser() {
     $.ajax({
         url: '/User/GetCurrentUser',
@@ -21,6 +61,11 @@ function GetCurrrentUser() {
             } else {
 
             }
+            //if (data.avt) {
+            //    $('#avatarSide').attr('src', data.avt);
+            //} else {
+            //    alert('No avatar found.');
+            //}
         },
         error: function () {
 

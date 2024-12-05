@@ -76,6 +76,33 @@ namespace BooksWebsite.Controllers
                 return Json(new { code = 500, msg = "Sai !!!" + e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetAvatar()
+        {
+            var userId = (User)Session["user"]; // Your logic to get the current user's ID
+            var user = db.Users.Where(u => u.id == userId.id).FirstOrDefault();
+            if (user != null && user.avatar != null)
+            {
+                return File(user.avatar, "image/png"); // Return the avatar as a file
+            }
+
+            return HttpNotFound();
+        }
+
+        public ActionResult GetAvatarID(string userId)
+        {
+            using (var db = new BookReadingEntities())
+            {
+                var user = db.Users.Where(u => u.username == userId).FirstOrDefault();
+                if (user != null && user.avatar != null)
+                {
+                    return File(user.avatar, "image/png"); // Return the avatar as an image
+                }
+            }
+
+            return HttpNotFound("Avatar not found.");
+        }
+
         [HttpGet]
         public JsonResult GetCurrentUser()
         {
@@ -84,7 +111,7 @@ namespace BooksWebsite.Controllers
                 var ss = (User)Session["user"];
                 if (ss != null)
                 {
-                    return Json(new { code = 200, acc = ss.username }, JsonRequestBehavior.AllowGet);
+                    return Json(new { code = 200, acc = ss.username}, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

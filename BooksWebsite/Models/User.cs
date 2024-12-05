@@ -19,5 +19,6 @@ namespace BooksWebsite.Models
         public int id { get; set; }
         public int role { get; set; }
         public Nullable<System.DateTime> login_time { get; set; }
+        public byte[] avatar { get; set; }
     }
 }

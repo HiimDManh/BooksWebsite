@@ -166,7 +166,11 @@ var KTLogin = function () {
                             showConfirmButton: false,
                         })
                         setTimeout(() => {
-                            window.location.href = "/BeforeStart/Index";
+                            var checkbox = document.getElementById("isGS");
+                            if (checkbox.checked)
+                                window.location.href = "/";
+                            else
+                                window.location.href = "/BeforeStart/Index";
                         }, 2000);
                     } else {
                         swal.fire({

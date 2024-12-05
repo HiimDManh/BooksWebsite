@@ -2,6 +2,7 @@
 using BooksWebsite.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,6 +46,12 @@ namespace BooksWebsite.Controllers
             try
             {
                 var typeList = _entities.UserBehaviors.Where(u => u.UserID == user.id).ToList();
+                
+                if(typeList.Count == 0)
+                {
+                    var list = _entities.Books.ToList();
+                    return Json(new { code = 200, book = list }, JsonRequestBehavior.AllowGet);
+                }
                 var bookList = new List<Book>();
                 foreach(var type in typeList)
                 {
@@ -117,6 +124,41 @@ namespace BooksWebsite.Controllers
             {
                 return Json(new { code = 500, message = e.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public JsonResult ChangeAvatar(HttpPostedFileBase avatar)
+        {
+            try
+            {
+                var user = (User)Session["user"];
+                if (avatar != null && avatar.ContentLength > 0)
+                {
+                    using (var binaryReader = new BinaryReader(avatar.InputStream))
+                    {
+                        byte[] avatarData = binaryReader.ReadBytes(avatar.ContentLength);
+
+                        // Assuming you have a method to get the current user's ID
+                        int userId = user.id;
+
+                        // Save the avatar data to the database
+                        var curUser = _entities.Users.Where(b => b.id == userId).FirstOrDefault();
+                        curUser.avatar = avatarData;
+                        _entities.SaveChanges();
+                    }
+                }
+                else
+                {
+                    return Json(new { code = 500, message = "file rỗng" }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { code = 200, }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { code = 500, message = e.Message }, JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }

@@ -38,8 +38,8 @@ namespace BooksWebsite.Models
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserBehavior> UserBehaviors { get; set; }
         public virtual DbSet<UserBookAnswer> UserBookAnswers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

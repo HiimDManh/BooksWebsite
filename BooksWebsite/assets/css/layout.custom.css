@@ -21,6 +21,11 @@ body {
     margin-right: 10px;
 }
 
+#accountCurrent {
+    font-size: 20px;
+    font-family: SVN-Billo;
+}
+
 #kt_header_mobile {
     width: 100%;
     border-radius: 10px;

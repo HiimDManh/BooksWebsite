@@ -134,6 +134,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="role" Type="int" Nullable="false" />
           <Property Name="login_time" Type="datetime" />
+          <Property Name="avatar" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="UserBehavior">
           <Key>
@@ -190,9 +191,9 @@
           <EntitySet Name="Questions" EntityType="BookReadingModel.Question" />
           <EntitySet Name="Roles" EntityType="BookReadingModel.Role" />
           <EntitySet Name="Types" EntityType="BookReadingModel.Type" />
-          <EntitySet Name="Users" EntityType="BookReadingModel.User" />
           <EntitySet Name="UserBehaviors" EntityType="BookReadingModel.UserBehavior" />
           <EntitySet Name="UserBookAnswers" EntityType="BookReadingModel.UserBookAnswer" />
+          <EntitySet Name="Users" EntityType="BookReadingModel.User" />
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -314,16 +315,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="role" Type="Int32" Nullable="false" />
-          <Property Name="login_time" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="UserBehavior">
           <Key>
             <PropertyRef Name="ID" />
@@ -342,6 +333,17 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="QuestionID" Type="Int32" Nullable="false" />
           <Property Name="BookID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Precision="3" />
+          <Property Name="avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -482,17 +484,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="BookReadingModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="login_time" ColumnName="login_time" />
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserBehaviors">
             <EntityTypeMapping TypeName="BookReadingModel.UserBehavior">
               <MappingFragment StoreEntitySet="UserBehavior">
@@ -511,6 +502,18 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BookReadingModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
