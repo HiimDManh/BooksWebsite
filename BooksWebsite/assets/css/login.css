@@ -75,6 +75,11 @@
 
 .input-box {
     position: relative;
+    margin-bottom: 0 !important;
+}
+
+.code-hidden {
+    display: none;
 }
 
 .input-field {
@@ -127,7 +132,7 @@
 .switch-container {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
     margin-bottom: 25px;

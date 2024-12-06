@@ -10,6 +10,13 @@ $(document).ready(() => {
         $('#col2').css('transform', `translateX(-500px)`);
     });
 
+    $("#isGS").on("change", function () {
+        if ($(this).prop('checked')) { // Check if the checkbox is checked
+            $('.code-hidden').css('display', 'block'); // Hide elements
+        } else {
+            $('.code-hidden').css('display', 'none'); // Show elements
+        }
+    });
 
 });
 

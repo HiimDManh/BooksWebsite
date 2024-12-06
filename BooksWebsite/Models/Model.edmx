@@ -118,6 +118,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="TeacherCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Type">
           <Key>
             <PropertyRef Name="ID" />
@@ -168,6 +176,7 @@
           <EntitySet Name="OnReadingBook" EntityType="Self.OnReadingBook" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeacherCode" EntityType="Self.TeacherCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBehavior" EntityType="Self.UserBehavior" Schema="dbo" store:Type="Tables" />
@@ -194,6 +203,7 @@
           <EntitySet Name="UserBehaviors" EntityType="BookReadingModel.UserBehavior" />
           <EntitySet Name="UserBookAnswers" EntityType="BookReadingModel.UserBookAnswer" />
           <EntitySet Name="Users" EntityType="BookReadingModel.User" />
+          <EntitySet Name="TeacherCodes" EntityType="BookReadingModel.TeacherCode" />
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -344,6 +354,14 @@
           <Property Name="role" Type="Int32" Nullable="false" />
           <Property Name="login_time" Type="DateTime" Precision="3" />
           <Property Name="avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TeacherCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -514,6 +532,15 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeacherCodes">
+            <EntityTypeMapping TypeName="BookReadingModel.TeacherCode">
+              <MappingFragment StoreEntitySet="TeacherCode">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

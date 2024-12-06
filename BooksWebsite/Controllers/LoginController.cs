@@ -96,8 +96,14 @@ namespace BooksWebsite.Controllers
                     var user = Request.Form["re_user"];
                     var pass = Request.Form["re_pass"];
                     var check = Request.Form["select"];
+                    var code = Request.Form["code"];
                     var confirmPass = Request.Form["re_confirm_pass"];
                     //var checkUser = db.Users.SingleOrDefault(x => x.User1 == user);
+                    var checkTeacher = db.TeacherCodes.Where(t => t.Name == code.ToUpper());
+                    if (!checkTeacher.Any())
+                    {
+                        return Json(new { code = 500, msg = "Mã chuyên gia không tồn tại!", data = Request.Params });
+                    }
                     var checkUser = (from i in db.Users
                                      where i.username == user
                                      select i).FirstOrDefault();
