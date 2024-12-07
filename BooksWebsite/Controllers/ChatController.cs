@@ -33,7 +33,7 @@ namespace BooksWebsite.Controllers
                             .GroupBy(m => m.Sender == user.username ? m.Recipient : m.Sender) // Gom nhóm theo user còn lại
                                 .Select(g => new
                                 {
-                                    LatestMessage = g.OrderBy(m => m.CreateDate).FirstOrDefault(), // Lấy tin nhắn gần nhất trong nhóm
+                                    LatestMessage = g.OrderByDescending(m => m.CreateDate).FirstOrDefault(), // Lấy tin nhắn gần nhất trong nhóm
                                     UnreadCount = g.Count(m => m.Recipient == user.username && m.StatusRead == false) // Đếm số tin nhắn chưa đọc
                                 })
                                 .Select(g => new
