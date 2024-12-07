@@ -146,10 +146,18 @@
 @media (max-width: 892px) {
     .form-container {
         width: 500px !important;
+        margin-right: 0;
+        transform: scale(0.7)
     }
 
     #aside {
         display: none;
+    }
+
+    #kt_body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 }

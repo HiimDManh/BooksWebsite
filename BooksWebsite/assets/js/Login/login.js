@@ -20,6 +20,16 @@ $(document).ready(() => {
 
 });
 
+$(document).on({
+    ajaxStart: function () {
+        $("#wait").attr("hidden", false);
+    },
+    ajaxStop: function () {
+        $("#wait").attr("hidden", true);
+    }
+});
+
+
 var KTLogin = function () {
     var _login;
     var validation;
