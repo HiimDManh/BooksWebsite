@@ -17,6 +17,11 @@
     border-radius: 15px;
 }
 
+    .custom-cards:hover {
+        cursor: pointer;
+        box-shadow: 5px 5px 20px rgba(255, 165, 0, 1);
+    }
+
 .list-book {
     margin-top: 20px;
 }

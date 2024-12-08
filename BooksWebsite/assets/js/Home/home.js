@@ -2,6 +2,25 @@
 
 let length = 0;
 
+document.addEventListener("DOMContentLoaded", function () {
+    const qrContainer = document.querySelector(".qr-container");
+
+    qrContainer.addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("text/plain", null);
+        qrContainer.style.opacity = "0.5";
+    });
+
+    qrContainer.addEventListener("dragend", function (e) {
+        qrContainer.style.opacity = "1";
+
+        // Set new position
+        qrContainer.style.position = "absolute";
+        qrContainer.style.left = e.pageX + "px";
+        qrContainer.style.top = e.pageY + "px";
+    });
+});
+
+
 function setSlick () {
     $('.center').slick({
         centerMode: true,
