@@ -94,31 +94,33 @@ var Inittialization = function () {
             success: function (data) {
                 console.log(data);
                 data.book.forEach((e) => {
-                    var div = `<div class="col-6">
+                    var div = `<div class="">
                                     <div class="on-reading-item" onclick="BookPage(${e.ID})" id="${e.ID}">
-                                    <img src="${e.CoverHref}">
-                                    <h4 class="book-name">${e.BookName}</h4>
-                                    <div class="item-container">
-                                        <div class="outer">
-                                            <div class="inner">
-                                                <div class="number" id="number${e.Percentage}">
-                                                    ${e.Percentage}%
+                                        <div class="book-img-name">
+                                            <img src="${e.CoverHref}">
+                                            <h4 class="book-name">${e.BookName}</h4>
+                                        </div>
+                                        <div class="item-container">
+                                            <div class="outer">
+                                                <div class="inner">
+                                                    <div class="number" id="number${e.Percentage}">
+                                                        ${e.Percentage}%
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                                                <defs>
+                                                    <linearGradient id="GradientColor">
+
+                                                        <stop offset="0%" stop-color="#DA22FF" />
+
+                                                        <stop offset="100%" stop-color="#9733EE" />
+
+                                                    </linearGradient>
+                                                </defs>
+                                                <circle id="svg${e.ID}" cx="80" cy="80" r="70" stroke-linecap="round" />
+                                            </svg>
                                         </div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-                                            <defs>
-                                                <linearGradient id="GradientColor">
-
-                                                    <stop offset="0%" stop-color="#DA22FF" />
-
-                                                    <stop offset="100%" stop-color="#9733EE" />
-
-                                                </linearGradient>
-                                            </defs>
-                                            <circle id="svg${e.ID}" cx="80" cy="80" r="70" stroke-linecap="round" />
-                                        </svg>
-                                    </div>
                                 </div>
                             </div>`
                     $(".on-reading-list").append(div);

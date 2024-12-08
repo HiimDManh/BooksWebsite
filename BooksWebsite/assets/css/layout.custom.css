@@ -21,6 +21,16 @@ body {
     margin-right: 10px;
 }
 
+.logo-text-mobile {
+    font-family: 'Adigiana Extreme', system-ui;
+    font-size: 25px;
+    font-weight: 400;
+    font-style: normal;
+    color: #000;
+    text-align: center;
+    margin-right: 10px;
+}
+
 #accountCurrent {
     font-size: 20px;
     font-family: SVN-Billo;

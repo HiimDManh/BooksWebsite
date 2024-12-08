@@ -20,5 +20,6 @@ namespace BooksWebsite.Models
         public int role { get; set; }
         public Nullable<System.DateTime> login_time { get; set; }
         public byte[] avatar { get; set; }
+        public Nullable<int> type { get; set; }
     }
 }

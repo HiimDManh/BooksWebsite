@@ -2,6 +2,7 @@
 using BooksWebsite.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,23 +10,29 @@ using System.Web.Mvc;
 namespace BooksWebsite.Controllers
 {
     [AuthorizeUser]
-    public class BookController : Controller
+    public class ListBookController : Controller
     {
-        // GET: Book
         BookReadingEntities _entities = new BookReadingEntities();
+        // GET: ListBook
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult GetBook(int ID)
+        [HttpGet]
+        public JsonResult GetListBook()
         {
             try
             {
-                var book = _entities.Books.Where(b => b.ID == ID).FirstOrDefault();
+                var bookList = _entities.Books.OrderBy(x => x.Type).Select(b => new
+                {
+                    b.ID,
+                    b.Name,
+                    b.CoverSrc,
+                    Type = _entities.Types.Where(t => t.ID == b.Type).FirstOrDefault().Type1
+                }).ToList();
 
-                return Json(new { code = 200, book = book }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 200, book = bookList }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

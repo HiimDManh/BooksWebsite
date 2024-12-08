@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BooksWebsite.Controllers
 {
-    //[AuthorizeUser]
+    [AuthorizeUser]
     public class BeforeStartController : Controller
     {
         // GET: BeforeStart
@@ -56,11 +56,31 @@ namespace BooksWebsite.Controllers
                         QuestionID = ques.ID,
                     };
 
+                    var types = _entities.Answers.Where(a => a.ID == ID && a.Type != null).FirstOrDefault();
+                    if(types != null)
+                    {
+                        var us = _entities.Users.Where(u => u.id == user.id).FirstOrDefault();
+                        if(us != null)
+                        {
+                            us.type = types.Type;
+                        }
+                    }
+
                     _entities.UserBehaviors.Add(answer);
                     _entities.SaveChanges();
                 }
                 else
                 {
+                    var types = _entities.Answers.Where(a => a.ID == ID && a.Type != null).FirstOrDefault();
+                    if (types != null)
+                    {
+                        var us = _entities.Users.Where(u => u.id == user.id).FirstOrDefault();
+                        if (us != null)
+                        {
+                            us.type = types.Type;
+                        }
+                    }
+
                     exist.AnswerID = ID;
                     _entities.SaveChanges();
                 }

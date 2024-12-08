@@ -109,7 +109,18 @@ namespace BooksWebsite.Controllers
             try
             {
                 var user = (User)Session["user"];
+                var userList = db.Users
+                 .Where(u => u.type == user.type)
+                 .Select(u => u.username) // Select only the username field
+                 .ToList();
+                var teacherList = db.Users
+                    .Where(t => t.role == 2)
+                    .Select(t => t.username)
+                    .ToList();
+
+                // Query the MessageChats where d.IdUser is in the list of usernames
                 var data = db.MessageChats
+                             .Where(d => userList.Contains(d.IdUser) || teacherList.Contains(d.IdUser))
                                  .OrderBy(m => m.CreateDate) // Sắp xếp theo thời gian gửi tin nhắn
                                  .Select(m => new
                                  {

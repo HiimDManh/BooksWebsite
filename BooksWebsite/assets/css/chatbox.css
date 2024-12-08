@@ -15,3 +15,11 @@
     font-size: 17px;
     font-weight: 500;
 }
+
+input {
+    font-family: Montserrat;
+}
+
+#listGroupChat {
+    max-height: 300px !important;
+}

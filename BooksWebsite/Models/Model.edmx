@@ -143,6 +143,7 @@
           <Property Name="role" Type="int" Nullable="false" />
           <Property Name="login_time" Type="datetime" />
           <Property Name="avatar" Type="varbinary(max)" />
+          <Property Name="type" Type="int" />
         </EntityType>
         <EntityType Name="UserBehavior">
           <Key>
@@ -199,11 +200,11 @@
           <EntitySet Name="OnReadingBooks" EntityType="BookReadingModel.OnReadingBook" />
           <EntitySet Name="Questions" EntityType="BookReadingModel.Question" />
           <EntitySet Name="Roles" EntityType="BookReadingModel.Role" />
+          <EntitySet Name="TeacherCodes" EntityType="BookReadingModel.TeacherCode" />
           <EntitySet Name="Types" EntityType="BookReadingModel.Type" />
+          <EntitySet Name="Users" EntityType="BookReadingModel.User" />
           <EntitySet Name="UserBehaviors" EntityType="BookReadingModel.UserBehavior" />
           <EntitySet Name="UserBookAnswers" EntityType="BookReadingModel.UserBookAnswer" />
-          <EntitySet Name="Users" EntityType="BookReadingModel.User" />
-          <EntitySet Name="TeacherCodes" EntityType="BookReadingModel.TeacherCode" />
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -318,12 +319,32 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="TeacherCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Type">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Precision="3" />
+          <Property Name="avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="type" Type="Int32" />
         </EntityType>
         <EntityType Name="UserBehavior">
           <Key>
@@ -343,25 +364,6 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="QuestionID" Type="Int32" Nullable="false" />
           <Property Name="BookID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="role" Type="Int32" Nullable="false" />
-          <Property Name="login_time" Type="DateTime" Precision="3" />
-          <Property Name="avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="TeacherCode">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -494,11 +496,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TeacherCodes">
+            <EntityTypeMapping TypeName="BookReadingModel.TeacherCode">
+              <MappingFragment StoreEntitySet="TeacherCode">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Types">
             <EntityTypeMapping TypeName="BookReadingModel.Type">
               <MappingFragment StoreEntitySet="Type">
                 <ScalarProperty Name="Type1" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BookReadingModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -519,27 +543,6 @@
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="BookReadingModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
-                <ScalarProperty Name="login_time" ColumnName="login_time" />
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="username" ColumnName="username" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TeacherCodes">
-            <EntityTypeMapping TypeName="BookReadingModel.TeacherCode">
-              <MappingFragment StoreEntitySet="TeacherCode">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

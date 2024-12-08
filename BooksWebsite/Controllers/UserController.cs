@@ -1,4 +1,5 @@
-﻿using BooksWebsite.Models;
+﻿using BooksWebsite.Filters;
+using BooksWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BooksWebsite.Controllers
 {
+    [AuthorizeUser]
     public class UserController : Controller
     {
         private BookReadingEntities db = new BookReadingEntities();
@@ -86,18 +88,15 @@ namespace BooksWebsite.Controllers
                 return File(user.avatar, "image/png"); // Return the avatar as a file
             }
 
-            return HttpNotFound();
+            return HttpNotFound("Avatar not found.");
         }
 
         public ActionResult GetAvatarID(string userId)
         {
-            using (var db = new BookReadingEntities())
+            var user = db.Users.Where(u => u.username == userId).FirstOrDefault();
+            if (user != null && user.avatar != null)
             {
-                var user = db.Users.Where(u => u.username == userId).FirstOrDefault();
-                if (user != null && user.avatar != null)
-                {
-                    return File(user.avatar, "image/png"); // Return the avatar as an image
-                }
+                return File(user.avatar, "image/png"); // Return the avatar as an image
             }
 
             return HttpNotFound("Avatar not found.");

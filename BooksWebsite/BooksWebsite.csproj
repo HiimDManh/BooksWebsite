@@ -231,6 +231,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\GroupChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListBookController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -314,6 +315,7 @@
     <Content Include="assets\css\chatbox.css" />
     <Content Include="assets\css\home.css" />
     <Content Include="assets\css\layout.custom.css" />
+    <Content Include="assets\css\listbook.css" />
     <Content Include="assets\css\loading.css" />
     <Content Include="assets\css\login.css" />
     <Content Include="assets\css\radio.css" />
@@ -330,6 +332,7 @@
     <Content Include="assets\js\Before_Start\before_start.js" />
     <Content Include="assets\js\Book\book.js" />
     <Content Include="assets\js\Book_question\book_question.js" />
+    <Content Include="assets\js\chat.js" />
     <Content Include="assets\js\Home\home.js" />
     <Content Include="assets\js\Layout\layout.js" />
     <Content Include="assets\js\Layout\search_plugin.js" />
@@ -672,6 +675,7 @@
     <Content Include="Views\Chat\All.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\BookQuestion\Index.cshtml" />
+    <Content Include="Views\ListBook\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

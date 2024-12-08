@@ -1,0 +1,22 @@
+﻿.image-book {
+    min-height: 215px !important;
+}
+
+.for-you-header {
+    font-family: SVN-Billo;
+    color: #000 !important;
+    font-size: 40px;
+    display: flex;
+    align-items: flex-start;
+    background: #EFA30A;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+
+.custom-cards {
+    border-radius: 15px;
+}
+
+.list-book {
+    margin-top: 20px;
+}

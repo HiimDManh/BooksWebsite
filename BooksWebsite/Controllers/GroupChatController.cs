@@ -1,4 +1,5 @@
-﻿using BooksWebsite.Models;
+﻿using BooksWebsite.Filters;
+using BooksWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BooksWebsite.Controllers
 {
+    [AuthorizeUser]
     public class GroupChatController : Controller
     {
         private BookReadingEntities db = new BookReadingEntities();

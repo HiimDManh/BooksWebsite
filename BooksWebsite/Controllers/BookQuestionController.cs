@@ -1,4 +1,5 @@
-﻿using BooksWebsite.Models;
+﻿using BooksWebsite.Filters;
+using BooksWebsite.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BooksWebsite.Controllers
 {
+    [AuthorizeUser]
     public class BookQuestionController : Controller
     {
         // GET: BookQuestion

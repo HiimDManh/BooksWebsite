@@ -22,6 +22,15 @@
     border-radius: 30px;
 }
 
+.seemore {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border-radius: 20px;
+}
+
 .autoplay {
     margin-top: 30px;
 }
@@ -39,30 +48,41 @@
     }
 
 .on-reading-list {
-    gap: 50px;
+    gap: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .on-reading-item {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     background: #fff;
     padding: 20px;
     border-radius: 20px;
-    gap: 20px;
-    min-width: 500px;
+    min-width: 350px;
+    max-width: 500px;
+    flex-wrap: wrap;
+    max-height: 300px
 }
 
-    .on-reading-item:hover {
-        cursor: pointer;
-        box-shadow: 5px 5px 20px rgba(255, 165, 0, 1);
-    }
+.book-img-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    height: 145px;
+}
+
+.on-reading-item:hover {
+    cursor: pointer;
+    box-shadow: 5px 5px 20px rgba(255, 165, 0, 1);
+}
 
 .on-reading-item img {
     width: 100px;
@@ -114,7 +134,7 @@
     .book-name {
         font-size: 20px;
         font-weight: 500;
-        width: 40%;
+        max-width: 300px;
     }
 
 .item-container {
@@ -173,5 +193,9 @@ circle {
 @media (max-width: 1600px) {
     .on-reading-list {
         flex-wrap: wrap !important;
+    }
+
+    .on-reading-item {
+        transform: scale(0.8)
     }
 }

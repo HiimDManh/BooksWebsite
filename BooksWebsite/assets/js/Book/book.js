@@ -16,10 +16,10 @@ var Inittialization = function () {
                 $("#img").attr("alt", item.Name)
                 $('#book_name').text(item.Name);
                 if (item.IsBook) {
-                    $("#bookHref").attr("href", item.ReadingHref)
+                    $("#bookHref").attr("value", item.ReadingHref)
                 }
                 else {
-                    $("#bookHref").attr("href", item.RadioHref)
+                    $("#bookHref").attr("value", item.RadioHref)
                 }
             },
             error: function (data) {
@@ -42,6 +42,18 @@ var Inittialization = function () {
         $(document).on("click", "#answerBtn", function () {
             window.location.href = "/BookQuestion/index" 
         })
+
+        $(document).on("click", "#bookHref",function (e) {
+            e.preventDefault(); // Prevent the default action of the link
+
+            // Perform your custom logic here
+            let linkUrl = $(this).attr('value'); // Get the current href value
+            if (linkUrl) {
+                window.open(linkUrl, '_blank'); // Open the link in a new tab
+            } else {
+                alert('No URL is set for this link!');
+            }
+        });
 
         //$("#bookHref").on("click", function () {
         //    window.location.href($(this).attr("value"))

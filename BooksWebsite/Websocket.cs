@@ -15,7 +15,7 @@ namespace BooksWebsite
 
         public void Main()
         {
-            var server = new WebSocketServer("wss://0.0.0.0:8181");
+            var server = new WebSocketServer("ws://0.0.0.0:8084");
             var room = rooms.FirstOrDefault(r => r.RoomName == "NCCD");
             if (room == null)
             {
