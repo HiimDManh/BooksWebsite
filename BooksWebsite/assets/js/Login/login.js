@@ -246,8 +246,8 @@ var KTLogin = function () {
                             showConfirmButton: false,
                         })
                         setTimeout(() => {
-                            window.location.href = "/";
-                        }, 2000);
+                            window.location.href = data.url;
+                        }, 1500);
                     } else {
                         swal.fire({
                             title: "Có lỗi!",

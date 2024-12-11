@@ -21,9 +21,11 @@ namespace BooksWebsite.Models
         }
         public class query
         {
-            public int No { get; set; }
+            public string No { get; set; }
             public string Type { get; set; }
             public string count { get; set; }   
+            public string username { get; set; }   
+            public byte[] avatar { get; set; }   
         }
         public class meta
         {

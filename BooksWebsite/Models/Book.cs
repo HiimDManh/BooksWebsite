@@ -17,6 +17,7 @@ namespace BooksWebsite.Models
         public int ID { get; set; }
         public string ReadingHref { get; set; }
         public string Name { get; set; }
+        public string Author { get; set; }
         public int Type { get; set; }
         public string RadioHref { get; set; }
         public string CoverSrc { get; set; }

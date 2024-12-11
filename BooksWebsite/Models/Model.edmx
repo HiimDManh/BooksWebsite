@@ -21,6 +21,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReadingHref" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Author" Type="nvarchar(max)" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="RadioHref" Type="nvarchar(max)" />
           <Property Name="CoverSrc" Type="nvarchar(max)" />
@@ -222,6 +223,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReadingHref" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="RadioHref" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CoverSrc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -388,6 +390,7 @@
                 <ScalarProperty Name="CoverSrc" ColumnName="CoverSrc" />
                 <ScalarProperty Name="RadioHref" ColumnName="RadioHref" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ReadingHref" ColumnName="ReadingHref" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

@@ -57,6 +57,8 @@ namespace BooksWebsite.Controllers
                             Session["user"] = checkUser;
                             //Session["roleadmin"] = db.RoleAdmins.Find(checkUser.RoleAdmin);
                             //Session["role"] = db.Roles.Find(checkUser.Role);
+                            if(checkUser.username == "ADMIN@123")
+                                return Json(new { code = 200, msg = "Đăng Nhập Thành Công", url = "/AdminHome/Index" });
 
                             return Json(new { code = 200, msg = "Đăng Nhập Thành Công", url = "/Home/Index" });
                         }

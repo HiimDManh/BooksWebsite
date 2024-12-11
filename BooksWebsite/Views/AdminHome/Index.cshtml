@@ -34,11 +34,50 @@
         </div>
         <!--end: Search Form-->
         <!--begin: Datatable-->
-        <div style="width: 100%" class="datatable datatable-bordered datatable-head-custom" id="typeDatatable"></div>
-        <!--end: Datatable-->
+        <div class="form-group row">
+            <div class="datatable datatable-bordered datatable-head-custom col-lg-7" id="typeDatatable"></div>
+            <!--end: Datatable-->
+            <div class="col-lg-5">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-border">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                Biểu đồ thống kê
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card-body" style="position: relative;">
+                        <!--begin::Chart-->
+                        <div id="chart_13" style="min-height: 328.7px;">
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card-->
+            </div>
+        </div>        
     </div>
 </div>
 <!--end::Card-->
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeLg" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="width: 100%" class="datatable datatable-bordered datatable-head-custom" id="detailDatatable"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script src="~/assets/js/admin_home.js"></script>

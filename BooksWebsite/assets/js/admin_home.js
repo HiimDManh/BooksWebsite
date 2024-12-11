@@ -1,6 +1,19 @@
 ﻿"use strict"
 
 var datatable;
+var userDatatable;
+
+const primary = '#6993FF';
+const success = '#1BC5BD';
+const info = '#8950FC';
+const warning = '#FFA800';
+const danger = '#F64E60';
+
+function Detail(type, id) {
+    userDatatable.search(id, 'No');
+    $("#detailModal").modal('show');
+    $("#modalTitle").text(type)
+}
 
 var Initialize = function () {
     var demo = function () {
@@ -59,14 +72,18 @@ var Initialize = function () {
 
             // columns definition
             columns: [{
+                field: 'No',
+                title: 'Mã',
+                width: 50,
+                autoHide: false,
+            }, {
                 field: 'Type',
                 title: 'Đề mục sách',
                 sortable: true,
-                width: 100,
                 autoHide: false,
                 template: function (row) {
                     var output = '';
-                    output += '<div class="font-weight-bolder text-primary mb-0">' + row.Type + '</div>';
+                    output += '<div id="' + row.No + '" class="font-weight-bolder text-primary mb-0">' + row.Type + '</div>';
 
                     return output;
                 },
@@ -74,7 +91,7 @@ var Initialize = function () {
                 field: 'count',
                 title: 'Số lượng người dùng',
                 width: 200,
-                autoHide: true,
+                autoHide: false,
             }, {
                 field: 'Actions',
                 title: 'Hành động',
@@ -92,36 +109,12 @@ var Initialize = function () {
                             <li class="navi-header font-weight-bolder text-dark font-size-xs text-primary pb-2">
                                 Chọn hành động
                             </li>
-                            <li class="navi-item" onClick="Detail('${row.No_}')">
+                            <li class="navi-item" onClick="Detail('${row.Type}','${row.No}')">
                                 <a class="navi-link" >
                                     <span class="navi-icon"><i class="flaticon-more"></i></span>
                                     <span class="navi-text font-weight-bold text-info">Chi tiết</span>
                                 </a>
                             </li>
-                            <li class="navi-item" data-detail="${row.No_}" name="detailBtn">
-                                <a class="navi-link" >
-                                    <span class="navi-icon"><i class="la la-check-circle-o"></i></span>
-                                    <span class="navi-text font-weight-bold text-primary">Danh sách phiếu quét</span>
-                                </a>
-                            </li>
-                                <li class="navi-item" data-approveBtn="${row.No_}" name="approveBtn">
-                                <a class="navi-link" >
-                                    <span class="navi-icon"><i class="la la-edit"></i></span>
-                                    <span class="navi-text font-weight-bold text-success">Duyệt phiếu nhập</span>
-                                </a>
-                            </li> 
-                                <li class="navi-item" data-deletePuchase="${row.No_}" name="deletePuchase">
-                                <a class="navi-link" >
-                                    <span class="navi-icon"><i class="la la-remove"></i></span>
-                                    <span class="navi-text font-weight-bold text-danger">Xóa phiếu nhập</span>
-                                </a>
-                            </li>
-                            <li class="navi-item" data-printPO="${row.No_}" name="printPO">
-                                <div class="navi-link" style="cursor: pointer">
-                                    <i class="fa-solid fa-print navi-icon"></i>                                            
-                                    <span class="navi-text font-weight-bold text-warning">In phiếu nhập</span>
-                                </div>
-                            </li> 
                         </ul>
                     </div>
                 </div>`;
@@ -147,10 +140,155 @@ var Initialize = function () {
 
     };
 
+    var detail = function () {
+
+        userDatatable = $('#detailDatatable').KTDatatable({
+            // datasource definition
+            data: {
+                type: 'remote',
+                source: {
+                    read: {
+                        url: '/AdminHome/DetailList',
+                    },
+                },
+                pageSize: 10,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+
+            // layout definition
+            layout: {
+                /*scroll:true,*/
+                scroll: true,
+                height: 550,
+                footer: false,
+                icons: {
+                    rowDetail: {
+                        expand: 'fa fa-caret-down',
+                        collapse: 'fa fa-caret-right'
+                    }
+                }
+            },
+            toolbar: {
+                items: {
+                    pagination: {
+                        pages: {
+                            mobile: {
+                                layout: 'compact'
+                            },
+                            tablet: {
+                                layout: 'default',
+                                pagesNumber: 3
+                            },
+                            desktop: {
+                                layout: 'default',
+                                pagesNumber: 5
+                            }
+                        }
+                    }
+                }
+            },
+            // column sorting
+            sortable: true,
+
+            pagination: true,
+
+
+            // columns definition
+            columns: [{
+                field: 'No',
+                title: 'ID',
+                sortable: true,
+                autoHide: false,
+                width: 50,
+            }, {
+                field: 'username',
+                title: 'Người dùng',
+                autoHide: false,
+                template: function (row) {
+                    let avatarUrl = '/AdminHome/GetAvatarID?userId=' + encodeURIComponent(row.username);
+                    var output = `<span style="width: 250px;"><div class="d-flex align-items-center">								
+                                    <div class="symbol symbol-40 symbol-light-primary flex-shrink-0">									
+                                        <img src="${avatarUrl}" alt="Picture" />								
+                                    </div>								
+                                    <div class="ml-4">									
+                                        <div class="text-dark-75 font-weight-bolder font-size-lg mb-0">${row.username}
+                                        </div>									
+                                    </div>							
+                                </div>
+                            </span>`;
+                    return output;
+                },
+            }],
+        });
+
+    };
+
+    var _demo12 = function () {
+        $.ajax({
+            url: "/AdminHome/ShowDetailList",
+            type: "post",
+            data: {
+                page: 1,
+                pages: 1,
+                perpage: 10,
+                total: 9,
+            },
+            success: function (data) {
+                var type = [];
+                var count = [];
+                var no = [];
+                data.data.forEach((e) => {
+                    type.push(e.Type);
+                    count.push(e.count);
+                    no.push(e.No);
+                })
+
+                const apexChart = "#chart_13";
+                var options = {
+                    series: [{
+                        name: 'Số lượng người dùng',
+                        data: count
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'area'
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
+                    xaxis: {
+                        type: 'text',
+                        categories: no,
+                    },
+                    tooltip: {
+                        x: {
+                            formatter: function (type) {
+                                return type;
+                            }
+                        },
+                    },
+                    colors: [primary]
+                };
+
+                var chart = new ApexCharts(document.querySelector(apexChart), options);
+                chart.render();
+            },
+            error: function () {
+                console.error('Error getting localized string:', error);
+            }
+        })
+    };
+
     return {
         init: function () {
             demo();
-            
+            detail();
+            _demo12();
         }
     }
 }();
