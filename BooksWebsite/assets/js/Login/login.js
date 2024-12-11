@@ -35,9 +35,23 @@ var KTLogin = function () {
     var validation;
     var re_validation;
 
+
+    var _showForm = function (form) {
+        var cls = 'login-' + form + '-on';
+        var form = 'kt_login_' + form + '_form';
+
+        _login.removeClass('login-forgot-on');
+        _login.removeClass('login-signin-on');
+        _login.removeClass('login-signup-on');
+
+        _login.addClass(cls);
+
+        KTUtil.animateClass(KTUtil.getById(form), 'animate__animated animate__backInUp');
+    }
+
     var _handleSignInForm = function () {
         var form = document.getElementById('kt_login_signin_form');
-        var re_form = document.getElementById('register_form');
+        var re_form = document.getElementById('kt_login_signup_form');
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         validation = FormValidation.formValidation(
             form,
@@ -100,6 +114,19 @@ var KTLogin = function () {
 
         console.log(validation);
 
+        // Handle signup
+        $('#kt_login_signup').on('click', function (e) {
+            e.preventDefault();
+            _showForm('signup');
+        });
+
+        // Handle cancel button
+        $('#kt_login_signup_cancel').on('click', function (e) {
+            e.preventDefault();
+
+            _showForm('signin');
+        });
+
         $('#kt_login_signin_submit').on('click', function (e) {
             e.preventDefault();
 
@@ -161,7 +188,7 @@ var KTLogin = function () {
         });
 
         function Register() {
-            var form = document.getElementById("register_form");
+            var form = document.getElementById("kt_login_signup_form");
             var formdata = new FormData(form);
             /* var host = localStorage.getItem("host")*/
             $.ajax({
@@ -299,7 +326,7 @@ var KTLogin = function () {
         // public functions
         init: function () {
             //_login = $('#kt_login');
-
+            _login = $('#kt_login');
             _handleSignInForm();
         }
     };
