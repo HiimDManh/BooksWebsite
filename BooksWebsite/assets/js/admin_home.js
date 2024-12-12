@@ -123,7 +123,7 @@ var Initialize = function () {
         });
 
         $('#kt_datatable_search_query').keyup(function (e) {
-            datatable.search($(this).val(), 'No_');
+            datatable.search($(this).val(), 'Type');
         });
 
         function parseJsonDate(jsonDate) {

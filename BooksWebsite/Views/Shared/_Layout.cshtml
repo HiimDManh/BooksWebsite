@@ -35,7 +35,7 @@
 </head>
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading" data-scrolltop="off">
-    
+
     <!--begin::Main-->
     <!--begin::Header Mobile-->
     <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
@@ -54,8 +54,8 @@
                     <span></span>
                 </button>
                 @*<button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
-                    <span></span>
-                </button>*@
+                        <span></span>
+                    </button>*@
                 <!--end::Header Menu Mobile Toggle-->
                 <!--begin::Topbar Mobile Toggle-->
                 <button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">
@@ -178,7 +178,7 @@
                                     <span class="menu-text">ĐẠI SỨ VĂN HOÁ ĐỌC</span>
                                 </a>
                             </li>
-                            
+
                         </ul>
                         <!--end::Menu Nav-->
                         <!--begin::Logo-->
@@ -275,7 +275,7 @@
                                     <span class="text-dark font-size-base d-none d-md-inline mr-1" id="accountCurrent"></span>
                                     <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3" name="firstUserSession"></span>
                                     <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-                                        <img src="@Url.Action("GetAvatar", "User")" alt="Your Avatar"/>
+                                        <img src="@Url.Action("GetAvatar", "User")" alt="Your Avatar" />
                                     </span>
                                 </div>
                             </div>
@@ -445,6 +445,44 @@
         </span>
     </div>
 
+    <ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
+        <!--begin::Item-->
+        <li class="nav-item mb-2" id="kt_demo_panel_toggle" data-toggle="tooltip" title="" data-placement="right">
+            <a class="btn btn-sm btn-icon btn-bg-light btn-icon-success btn-hover-success" data-trigger="click" id="qr1">
+                <i class="flaticon-grid-menu"></i>
+            </a>
+        </li>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <li class="nav-item mb-2" data-toggle="tooltip" title="" data-placement="left" data-original-title="Layout Builder">
+            <a class="btn btn-sm btn-icon btn-bg-light btn-icon-primary btn-hover-primary" href="https://preview.keenthemes.com/metronic/demo1/builder.html" target="_blank">
+                <i class="flaticon2-gear"></i>
+            </a>
+        </li>
+        <!--end::Item-->
+    </ul>
+
+    <!-- Modal-->
+    <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">QR CODE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column-fluid flex-column flex-center gap-5" id="modalContent">
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="~/Scripts/jquery-3.7.0.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

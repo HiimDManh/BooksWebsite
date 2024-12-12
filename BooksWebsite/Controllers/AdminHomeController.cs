@@ -10,7 +10,7 @@ using BooksWebsite.Filters;
 
 namespace BooksWebsite.Controllers
 {
-    [AuthorizeUser]
+    [AuthorizeUser("3")]
     public class AdminHomeController : Controller
     {
         BookReadingEntities _entities = new BookReadingEntities();

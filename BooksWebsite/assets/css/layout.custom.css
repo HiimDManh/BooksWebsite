@@ -11,6 +11,10 @@ body {
     font-family: "Montserrat", serif;
 }
 
+    body.modal-open {
+        overflow-x: hidden !important;
+    }
+
 .logo-text {
     font-family: 'Adigiana Extreme', system-ui;
     font-size: 35px;
@@ -19,6 +23,10 @@ body {
     color: #000;
     text-align: center;
     margin-right: 10px;
+}
+
+#sticky{
+    width: fit-content !important;
 }
 
 .logo-text-mobile {

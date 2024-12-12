@@ -232,6 +232,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminHomeController.cs" />
+    <Compile Include="Controllers\AdminUserManagementController.cs" />
     <Compile Include="Controllers\AIChattingController.cs" />
     <Compile Include="Controllers\BeforeStartController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Models\UserBookAnswer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Websocket.cs" />
   </ItemGroup>
@@ -340,6 +342,7 @@
     <Content Include="assets\css\themes\layout\header\menu\dark.css" />
     <Content Include="assets\css\themes\layout\header\menu\light.css" />
     <Content Include="assets\js\admin_home.js" />
+    <Content Include="assets\js\admin_user_management.js" />
     <Content Include="assets\js\Before_Start\before_start.js" />
     <Content Include="assets\js\Book\book.js" />
     <Content Include="assets\js\Book_question\book_question.js" />
@@ -689,6 +692,7 @@
     <Content Include="Views\ListBook\index.cshtml" />
     <Content Include="Views\AdminHome\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\AdminUserManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,7 +12,15 @@ $("#kt_aside").on('resize', (event, data) => {
 });
 GetCurrrentUser()
 
+$(document).on('click', '#qr1', function () {
+    var div = `<img id="qr" alt="tusach" src="/assets/media/users/qr_sach.jpg" />
+                        <h4 class="text-center mt-4">Quét QR để xem<br />Tủ sách điện tử Tổng Bí thư Nguyễn Phú Trọng</h4>`
+    $('#modalContent').append(div);
+    $('#qrModal').modal('show');
+})
+
 $(document).ready(function () {
+    
     // Handle form submission
     $('#avatarForm').submit(function (e) {
         e.preventDefault(); // Prevent default form submission

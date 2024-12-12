@@ -2,23 +2,23 @@
 
 let length = 0;
 
-document.addEventListener("DOMContentLoaded", function () {
-    const qrContainer = document.querySelector(".qr-container");
+//document.addEventListener("DOMContentLoaded", function () {
+//    const qrContainer = document.querySelector(".qr-container");
 
-    qrContainer.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("text/plain", null);
-        qrContainer.style.opacity = "0.5";
-    });
+//    qrContainer.addEventListener("dragstart", function (e) {
+//        e.dataTransfer.setData("text/plain", null);
+//        qrContainer.style.opacity = "0.5";
+//    });
 
-    qrContainer.addEventListener("dragend", function (e) {
-        qrContainer.style.opacity = "1";
+//    qrContainer.addEventListener("dragend", function (e) {
+//        qrContainer.style.opacity = "1";
 
-        // Set new position
-        qrContainer.style.position = "absolute";
-        qrContainer.style.left = e.pageX + "px";
-        qrContainer.style.top = e.pageY + "px";
-    });
-});
+//        // Set new position
+//        qrContainer.style.position = "absolute";
+//        qrContainer.style.left = e.pageX + "px";
+//        qrContainer.style.top = e.pageY + "px";
+//    });
+//});
 
 
 function setSlick () {
@@ -74,8 +74,11 @@ var Inittialization = function () {
                 var div = ``;
                 data.book.forEach((e, i) => {
                     var id = e.ID;
-                    div += `<div class="book-img" value="${id}">
-                                <img src="${e.CoverSrc}" alt="${e.Name}">
+                    div += `<div class="book-img" value="${id}" style="height: 100% !important">
+                                <div class="d-flex flex-column flex-center">
+                                    <img src="${e.CoverSrc}" alt="${e.Name}">
+                                    <span class="text-dark font-size-h4 text-center p-2 fw-bold" style="width: 200px; background: #fff; border-radius: 15px;">${e.Name}</span>
+                                </div>
                             </div>`
                 })
                 $(".autoplay").append(div);

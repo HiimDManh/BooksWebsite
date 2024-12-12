@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card card-custom" id="cardMain">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                Danh sách người dùng
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <!--begin: Search Form-->
+        <!--begin::Search Form-->
+        <div class="mb-7">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-xl-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 my-2 my-md-0">
+                            <div class="input-icon">
+                                <input type="text" class="form-control" placeholder="Username..." id="kt_datatable_search_query" />
+                                <span>
+                                    <i class="flaticon2-search-1 text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end: Search Form-->
+        <!--begin: Datatable-->
+        <div class="form-group row">
+            <div class="datatable datatable-bordered datatable-head-custom col-12" id="userDatatable"></div>
+            <!--end: Datatable-->
+
+        </div>
+    </div>
+</div>
+<!--end::Card-->
+
+@section scripts {
+    <script src="~/assets/js/admin_user_management.js"></script>
+}
