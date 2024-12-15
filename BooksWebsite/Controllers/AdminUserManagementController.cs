@@ -29,9 +29,13 @@ namespace BooksWebsite.Controllers
 
                 if (query == null)
                     query = new query();
+
+                if (query.username == null)
+                    query.username = "";
                 //danh sach cac PO
 
                 var userList = from p in _entities.Users
+                               where p.username.Contains(query.username)
                                select new query()
                                {
                                    username = p.username,

@@ -513,6 +513,7 @@
     <Content Include="assets\media\error\bg5.jpg" />
     <Content Include="assets\media\error\bg6.jpg" />
     <Content Include="assets\media\logo\logo.png" />
+    <Content Include="assets\media\mascot\barcode.png" />
     <Content Include="assets\media\mascot\book1.png" />
     <Content Include="assets\media\mascot\book2.png" />
     <Content Include="assets\media\mascot\book3.png" />

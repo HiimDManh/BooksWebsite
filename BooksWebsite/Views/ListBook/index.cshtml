@@ -6,84 +6,84 @@
 
 <link href="~/assets/css/listbook.css" rel="stylesheet" />
 
-<div class="container">
+<div class="container" id="containerBook">
 </div>
 
 @section scripts {
     <script>
-            Book();
 
-            function Book() {
-                $.ajax({
-                    /*  url: host+'/Account/loginapi',*/
-                    url: '/ListBook/GetListBook',
-                    type: 'Get',
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        var div = ``;
-                        var count = 4;
-                        var type = "";
-                        var row = 1;
-                        data.book.forEach((e, i) => {
-                            var id = e.ID;
-                            count++;
-                            if (e.Type != type) {
-                                if (row > 1)
+        $(document).ready(() => {
+            $.ajax({
+                /*  url: host+'/Account/loginapi',*/
+                url: '/ListBook/GetListBook',
+                type: 'Get',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    var div = ``;
+                    var count = 4;
+                    var type = "";
+                    var row = 1;
+                    data.book.forEach((e) => {
+                        var id = e.ID;
+                        count++;
+                        if (e.Type != type) {
+                            if (row > 1)
                                 div += `</div>`
-                                div += `<div class="row cta-info text-center mb-2" style="padding: 0 !important; width: 100%">
-                                            <h3 class="for-you-header">${e.Type}</h3>
-                                        </div>`
-                                type = e.Type;
-                                row++;
-                                count = 5;
-                            }
-                            if (count > 4) {
-                                count = 1;
-                                div += `</div><div class="row list-book">`
-                            }
-                            div += `<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                        <!--begin::Card-->
-                                        <div class="card card-custom gutter-b card-stretch custom-cards" id="${e.ID}">
-                                            <!--begin::Body-->
-                                            <div class="card-body text-center pt-4">
-                                                <!--begin::User-->
-                                                <div class="mt-7 image-book">
-                                                    <div class="">
-                                                        <img style="width: 150px" src="${e.CoverSrc}" alt="image">
+                            div += `<div class="row cta-info text-center mb-2" style="padding: 0 !important; width: 100%">
+                                                <h3 class="for-you-header">${e.Type}</h3>
+                                            </div>`
+                            type = e.Type;
+                            row++;
+                            count = 5;
+                        }
+                        if (count > 4) {
+                            count = 1;
+                            div += `</div><div class="row list-book">`
+                        }
+                        div += `<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                            <!--begin::Card-->
+                                            <div class="card card-custom gutter-b card-stretch custom-cards" id="${e.ID}">
+                                                <!--begin::Body-->
+                                                <div class="card-body text-center pt-4">
+                                                    <!--begin::User-->
+                                                    <div class="mt-7 image-book">
+                                                        <div class="">
+                                                            <img style="width: 150px" src="${e.CoverSrc}" alt="image">
+                                                        </div>
                                                     </div>
+                                                    <!--end::User-->
+                                                    <!--begin::Name-->
+                                                    <div class="my-2">
+                                                        <div href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">${e.Name}</div>
+                                                    </div>
+                                                    <!--end::Name-->
                                                 </div>
-                                                <!--end::User-->
-                                                <!--begin::Name-->
-                                                <div class="my-2">
-                                                    <div href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">${e.Name}</div>
-                                                </div>
-                                                <!--end::Name-->
+                                                <!--end::Body-->
                                             </div>
-                                            <!--end::Body-->
-                                        </div>
-                                        <!--end::Card-->
-                                    </div>`
-                        })
-                        $(".container").append(div);
-                    },
-                    error: function () {
-                        swal.fire({
-                            title: "Có lỗi!",
-                            text: "Bạn chưa đăng ký!",
-                            icon: "error",
-                            heightAuto: false,
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok!",
-                            customClass: {
-                                confirmButton: "btn font-weight-bold btn-light-primary"
-                            }
-                        }).then(function () {
-                            KTUtil.scrollTop();
-                        });
-                    }
-                })
-        }
+                                            <!--end::Card-->
+                                        </div>`
+                    })
+                    $("#containerBook").append(div);
+                },
+                error: function () {
+                    swal.fire({
+                        title: "Có lỗi!",
+                        text: "Bạn chưa đăng ký!",
+                        icon: "error",
+                        heightAuto: false,
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn font-weight-bold btn-light-primary"
+                        }
+                    }).then(function () {
+                        KTUtil.scrollTop();
+                    });
+                }
+            })
+        })
+
         $(document).on("click", ".custom-cards", function () {
             var val = $(this).attr("id");
             localStorage.setItem("selectedBookId", val);
@@ -91,4 +91,4 @@
         })
 
     </script>
-    }
+}

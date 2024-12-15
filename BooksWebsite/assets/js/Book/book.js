@@ -14,11 +14,14 @@ var Inittialization = function () {
                 var item = data.book
                 $("#img").attr("src", item.CoverSrc) 
                 $("#img").attr("alt", item.Name)
-                $('#book_name').text(item.Name);
+                
                 if (item.IsBook) {
+                    $('#book_name').text(item.Name);
                     $("#bookHref").attr("value", item.ReadingHref)
                 }
                 else {
+                    $('#book_name').text("Radio " + item.Name);
+                    $('#type-book').text("Nghe radio sách");
                     $("#bookHref").attr("value", item.RadioHref)
                 }
             },

@@ -52,6 +52,22 @@ function setSlick () {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 2000,
+        responsive: [
+            {
+                breakpoint: 1024, // Max width for this setting
+                settings: {
+                    slidesToShow: 2, // Change to 2 slides
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 768, // Max width for this setting
+                settings: {
+                    slidesToShow: 2, // Change to 1 slide
+                    slidesToScroll: 1,
+                }
+            }
+        ]
     });
 
     
@@ -77,7 +93,7 @@ var Inittialization = function () {
                     div += `<div class="book-img" value="${id}" style="height: 100% !important">
                                 <div class="d-flex flex-column flex-center">
                                     <img src="${e.CoverSrc}" alt="${e.Name}">
-                                    <span class="text-dark font-size-h4 text-center p-2 fw-bold" style="width: 200px; background: #fff; border-radius: 15px;">${e.Name}</span>
+                                    <span class="text-dark font-size-h4 text-center p-2 fw-bold" style="width: 150px; background: #fff; border-radius: 15px;">${e.Name}</span>
                                 </div>
                             </div>`
                 })
