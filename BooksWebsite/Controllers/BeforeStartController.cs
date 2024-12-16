@@ -24,7 +24,7 @@ namespace BooksWebsite.Controllers
             try
             {
                 var questionList = _entities.Questions.OrderBy(x => x.ID).Take(6).ToList();
-                var answerList = _entities.Answers.OrderBy(x => x.ID).Take(23).ToList();
+                var answerList = _entities.Answers.OrderBy(x => x.QuestionID).Take(23).ToList();
                 return Json(new { code = 200, question = questionList, answer = answerList }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
