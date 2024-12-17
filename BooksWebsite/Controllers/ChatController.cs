@@ -23,13 +23,15 @@ namespace BooksWebsite.Controllers
             return View();
         }
         [HttpGet]
-        public JsonResult ListChat()
+        public JsonResult ListChat(string username)
         {
             try
             {
+                if (username == null)
+                    username = "";
                 var user = (User)Session["user"];
                 var data = db.Chats
-                            .Where(m => m.Sender == user.username || m.Recipient == user.username) // Lọc tin nhắn của Tung
+                            .Where(m => (m.Sender == user.username || m.Recipient == user.username) && (m.Recipient.Contains(username) || m.Sender.Contains(username))) // Lọc tin nhắn của Tung
                             .GroupBy(m => m.Sender == user.username ? m.Recipient : m.Sender) // Gom nhóm theo user còn lại
                                 .Select(g => new
                                 {
@@ -104,45 +106,82 @@ namespace BooksWebsite.Controllers
             }
         }
         [HttpGet]
-        public JsonResult InfoChatAll()
+        public JsonResult InfoChatAll(int type)
         {
             try
             {
-                var user = (User)Session["user"];
-                var userList = db.Users
-                 .Where(u => u.type == user.type)
-                 .Select(u => u.username) // Select only the username field
-                 .ToList();
-                var teacherList = db.Users
-                    .Where(t => t.role == 2)
-                    .Select(t => t.username)
-                    .ToList();
+                if (type == -1)
+                {
+                    var user = (User)Session["user"];
+                    var userList = db.Users
+                     .Where(u => u.type == user.type)
+                     .Select(u => u.username) // Select only the username field
+                     .ToList();
+                    var teacherList = db.Users
+                        .Where(t => t.role == 2)
+                        .Select(t => t.username)
+                        .ToList();
 
-                // Query the MessageChats where d.IdUser is in the list of usernames
-                var data = db.MessageChats
-                             .Where(d => userList.Contains(d.IdUser) || teacherList.Contains(d.IdUser))
-                                 .OrderBy(m => m.CreateDate) // Sắp xếp theo thời gian gửi tin nhắn
-                                 .Select(m => new
-                                 {
-                                     Sender = m.IdUser,
-                                     Message = m.Message,
-                                     CreateDate = m.CreateDate,
-                                     IsMyMessage = m.IdUser == user.username
-                                 })
-                                 .ToList().Take(500)
-                                  .Select(x =>
-                                  {
-                                      // Tính toán chênh lệch thời gian sau khi truy vấn xong
-                                      var timeDifference = DateTime.Now - x.CreateDate.Value;
-                                      return (new
+                    // Query the MessageChats where d.IdUser is in the list of usernames
+                    var data = db.MessageChats
+                                 .Where(d => userList.Contains(d.IdUser) || teacherList.Contains(d.IdUser))
+                                     .OrderBy(m => m.CreateDate) // Sắp xếp theo thời gian gửi tin nhắn
+                                     .Select(m => new
+                                     {
+                                         Sender = m.IdUser,
+                                         Message = m.Message,
+                                         CreateDate = m.CreateDate,
+                                         IsMyMessage = m.IdUser == user.username
+                                     })
+                                     .ToList().Take(500)
+                                      .Select(x =>
                                       {
-                                          Sender = x.Sender,
-                                          Message = x.Message,
-                                          CreateDate = timeDifference.TotalMinutes,
-                                          IsMyMessage = x.Sender == user.username
+                                          // Tính toán chênh lệch thời gian sau khi truy vấn xong
+                                          var timeDifference = DateTime.Now - x.CreateDate.Value;
+                                          return (new
+                                          {
+                                              Sender = x.Sender,
+                                              Message = x.Message,
+                                              CreateDate = timeDifference.TotalMinutes,
+                                              IsMyMessage = x.Sender == user.username
+                                          });
                                       });
-                                  });
-                return Json(new { code = 200, data }, JsonRequestBehavior.AllowGet);
+                    return Json(new { code = 200, data }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var user = (User)Session["user"];
+                    var teacherList = db.Users
+                        .Where(t => t.role == 2)
+                        .Select(t => t.username)
+                        .ToList();
+
+                    // Query the MessageChats where d.IdUser is in the list of usernames
+                    var data = db.MessageChats
+                                 .Where(d => d.IdGroupChat == type)
+                                     .OrderBy(m => m.CreateDate) // Sắp xếp theo thời gian gửi tin nhắn
+                                     .Select(m => new
+                                     {
+                                         Sender = m.IdUser,
+                                         Message = m.Message,
+                                         CreateDate = m.CreateDate,
+                                         IsMyMessage = m.IdUser == user.username
+                                     })
+                                     .ToList().Take(500)
+                                      .Select(x =>
+                                      {
+                                          // Tính toán chênh lệch thời gian sau khi truy vấn xong
+                                          var timeDifference = DateTime.Now - x.CreateDate.Value;
+                                          return (new
+                                          {
+                                              Sender = x.Sender,
+                                              Message = x.Message,
+                                              CreateDate = timeDifference.TotalMinutes,
+                                              IsMyMessage = x.Sender == user.username
+                                          });
+                                      });
+                    return Json(new { code = 200, data }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception e)
             {
@@ -162,6 +201,25 @@ namespace BooksWebsite.Controllers
                 });
                 db.SaveChanges();
                 return Json(new { code = 200, }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { code = 500, msg = "Sai !!!" + e.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetListGroup()
+        {
+            try
+            {
+                var user = (User)Session["user"];
+                var list = db.Types.ToList();
+
+                if ( user.role == 1 )
+                    list = list.Where(x => x.ID == user.type).ToList();
+
+                return Json(new { code = 200, list = list}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

@@ -84,7 +84,8 @@ namespace BooksWebsite
                             {
                                 var roomName = parts[1];
                                 var roomMessage = parts[2];
-                                SendRoomMessage(currentUser, roomName, roomMessage);
+                                var idRoom = parts[3];
+                                SendRoomMessage(currentUser, roomName, roomMessage, idRoom);
                             }
                             break;
 
@@ -167,11 +168,12 @@ namespace BooksWebsite
             }
         }
 
-        static void SendRoomMessage(UserConnection sender, string roomName, string message)
+        static void SendRoomMessage(UserConnection sender, string roomName, string message, string id)
         {
             var room = rooms.FirstOrDefault(r => r.RoomName == roomName);
             if (room != null)
             {
+                room.IdRoom = int.Parse(id);
                 BroadcastRoomMessage(room, sender.Username, message);
             }
             else
@@ -189,6 +191,7 @@ namespace BooksWebsite
                     Message = message,
                     CreateDate = DateTime.Now,
                     IdUser = sender,
+                    IdGroupChat = room.IdRoom
                 };
                 db.MessageChats.Add(chat);
                 db.SaveChanges();
@@ -208,6 +211,7 @@ namespace BooksWebsite
 
     public class Room
     {
+        public int IdRoom { get; set; }
         public string RoomName { get; set; }
         public List<UserConnection> Users { get; set; } = new List<UserConnection>();
     }

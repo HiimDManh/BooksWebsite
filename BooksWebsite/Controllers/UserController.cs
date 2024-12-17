@@ -22,7 +22,7 @@ namespace BooksWebsite.Controllers
         {
             try
             {
-                if (!string.IsNullOrEmpty(id))
+                if (id != null)
                 {
                     var ss = (User)Session["user"];
                     if (ss.role == 2)

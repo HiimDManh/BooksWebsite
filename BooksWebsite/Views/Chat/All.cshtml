@@ -13,9 +13,24 @@
         <div class="card card-custom" id="khungChat">
             <!--begin::Header-->
             <div class="card-header align-items-center px-4 py-3">
-
+                <div class="text-left flex-grow-1 col-2">
+                    <!--begin::Dropdown Menu-->
+                    <div class="dropdown dropdown-inline">
+                        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ki ki-bold-sort icon-md"></i>
+                        </button>
+                        <div class="dropdown-menu p-0 m-0 dropdown-menu-left dropdown-menu-md">
+                            <!--begin::Navigation-->
+                            <ul class="navi navi-hover py-5" id="litGroupSelect">
+                            </ul>
+                            <!--end::Navigation-->
+                        </div>
+                    </div>
+                    <!--end::Dropdown Menu-->
+                </div>
                 <div class="text-center flex-grow-1">
                     <div class="text-dark-75 font-weight-bold font-size-h5" id="nameGroupChat">Phòng Chat Cộng Đồng</div>
+                    <input id="hiddenID" style="display: none" value=""/>
                     <div>
                         <span class="label label-sm label-dot label-success"></span>
                         <span class="font-weight-bold text-muted font-size-sm"></span>
@@ -71,7 +86,46 @@
         $('#chattingall').addClass('menu-item-active')
     </script>
     <script>
-        ShowInfoChat()
+        ShowListGroup();
+        function ShowListGroup() {
+            $.ajax({
+                url: '/Chat/GetListGroup',
+                type: 'get',
+                success: function (data) {
+                    if (data.code === 200) {
+                        $('#litGroupSelect').empty();
+                        var div = ``;
+                        $.each(data.list, function (k, v) {
+                            div += `<li class="navi-item">
+                                                <a id="${v.ID}" name="${v.Type1}" class="navi-link">
+                                                    <span class="navi-icon"><i class="flaticon-users-1"></i></span>
+                                                    <span class="navi-text">${v.Type1}</span>
+                                                </a>
+                                            </li>`
+                        });
+                        $('#litGroupSelect').append(div)
+                        var firstchat = $('a.navi-link').first();
+                        console.log(firstchat)
+                        $('#nameGroupChat').text(firstchat.attr('name'))
+                        $('#hiddenID').val(firstchat.attr('id'))
+                    } else {
+
+                    }
+                },
+                error: function () {
+
+                }
+            })
+        }
+
+        $(document).on('click', '.navi-link', function () {
+            var id = $(this).attr('id');
+            ShowInfoChat(id)
+            $('#nameGroupChat').text($(this).attr('name'))
+            $('#hiddenID').text($(this).attr('id'))
+        })
+
+        ShowInfoChat(-1)
         $(document).on('keydown', '#msg', function (e) {
             if (event.key === 'Enter') {
                 e.preventDefault();
@@ -80,10 +134,11 @@
             }
         })
         //hiểm thị thông tin msg với người liên hệ
-        function ShowInfoChat() {
+        function ShowInfoChat(type) {
             $.ajax({
                 url: '/Chat/InfoChatAll',
                 type: 'get',
+                data: { type },
                 success: function (data) {
                     if (data.code === 200) {
                         $('.messages').empty();
@@ -91,17 +146,17 @@
                         $.each(data.data, function (k, v) {
                             let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.Sender);
                             div += `<div class="d-flex flex-column mb-5 align-items-${(v.IsMyMessage ? `end` : `start`)}">
-                                     <div class="d-flex align-items-center">
-                                         <div class="symbol symbol-circle symbol-40 mr-3">
-                                             <img alt="Pic" src="${avatarUrl}" />
-                                         </div>
-                                         <div>
-                                             <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${v.Sender} </a>
-                                             <span class="text-muted font-size-sm">${Math.floor(v.CreateDate)} min</span>
-                                         </div>
-                                     </div>
-                                     <div class="mt-2 rounded p-5 bg-light-${(v.IsMyMessage ? `success` : `primary`)} text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${v.Message}</div>
-                                 </div>`
+                                             <div class="d-flex align-items-center">
+                                                 <div class="symbol symbol-circle symbol-40 mr-3">
+                                                     <img alt="Pic" src="${avatarUrl}" />
+                                                 </div>
+                                                 <div>
+                                                     <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${v.Sender} </a>
+                                                     <span class="text-muted font-size-sm">${Math.floor(v.CreateDate)} min</span>
+                                                 </div>
+                                             </div>
+                                             <div class="mt-2 rounded p-5 bg-light-${(v.IsMyMessage ? `success` : `primary`)} text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${v.Message}</div>
+                                         </div>`
                         });
                         $('.messages').append(div)
                         scrollToBottom()
@@ -121,7 +176,7 @@
         let socket = null;
         connectWebSocket()
         function connectWebSocket() {
-            socket = new WebSocket("ws://103.27.239.28:8084");
+            socket = new WebSocket("ws://103.163.118.233:8084");
 
             // Xử lý sự kiện khi WebSocket mở
             socket.onopen = () => {
@@ -190,7 +245,8 @@
         function sendPrivateMessage(message) {
             if (username != "") {
 
-                const command = `ROOM_MESSAGE|NCCD|${message}`;
+                var id = $('hiddenID').val();
+                const command = `ROOM_MESSAGE|NCCD|${message}|${id}`;
                 socket.send(command);
                 $('#msg').val('')
             } else {

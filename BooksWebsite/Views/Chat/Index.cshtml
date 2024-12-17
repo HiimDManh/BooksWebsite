@@ -17,18 +17,44 @@
                         <!--begin::Dropdown Menu-->
                         <div class="dropdown dropdown-inline">
                             <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ki ki-bold-more-hor icon-md"></i>
+                                <i class="ki ki-bold-sort icon-md"></i>
                             </button>
                             <div class="dropdown-menu p-0 m-0 dropdown-menu-left dropdown-menu-md">
                                 <!--begin::Navigation-->
                                 <ul class="navi navi-hover py-5">
                                     <li class="navi-item">
-                                        <a class="navi-link">
-                                            <span class="navi-icon">
-                                                <i class="flaticon2-drop"></i>
-                                            </span>
-                                            <span class="navi-text">Tạo nhóm</span>
-                                        </a>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <!--begin:Search-->
+                                                <div class="input-group input-group-solid col-12">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <span class="svg-icon svg-icon-lg">
+                                                                <!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
+                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <rect x="0" y="0" width="24" height="24" />
+                                                                        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                                        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                                                    </g>
+                                                                </svg>
+                                                                <!--end::Svg Icon-->
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control py-4 h-auto" placeholder="Người liên hệ" id="teacherSearch" />
+                                                </div>
+                                            </div>
+                                            <!--end:Search-->
+                                            <!--begin:Users-->
+                                            <div class="mt-7 scroll scroll-pull" id="listTeacher" style="height: 300px;">
+                                                <!--begin:User-->
+                                                <!--end:User-->
+
+                                            </div>
+                                            <!--end:Users-->
+                                        </div>
+                                        <!--end::Body-->
                                     </li>
                                 </ul>
                                 <!--end::Navigation-->
@@ -149,60 +175,67 @@
     </script>
     <script src="~/assets/js/chat.js"></script>
     <script>
-        ListChat()
-        //danh sach đã nhắn tin
-        function ListChat() {
-            $.ajax({
-                url: '/Chat/ListChat',
-                type: 'get',
-                success: function (data) {
-                    if (data.code === 200) {
-                        $('#listGroupChat').empty();
-                        var div = ``;
-                        $.each(data.data, function (k, v) {
-                            let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
-                            div += `<div class="d-flex align-items-center justify-content-between mb-5" data-id="${v.username}" name="groupChat">
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-circle symbol-50 mr-3">
-                                                    <img alt="Pic" src="${avatarUrl}" />
-                                                </div>
-                                                <div class="d-flex flex-column">
-                                                    <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
-                                                    <span class="text-muted font-weight-bold font-size-sm">${v.Message}</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-column align-items-end">
-                                                <span class="text-muted font-weight-bold font-size-sm">${Math.floor(v.CreateDate)} min</span>
-                                                <span class="label label-sm label-success">${v.UnreadCount}</span>
-                                            </div>
-                                        </div>`
-                        });
-                        $('#listGroupChat').append(div)
+        ListChat("")
+        SearchAccount("");
+                //danh sach đã nhắn tin
+                function ListChat(username) {
+                    $.ajax({
+                        url: '/Chat/ListChat',
+                        type: 'get',
+                        data: { username },
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#listGroupChat').empty();
+                                var div = ``;
+                                $.each(data.data, function (k, v) {
+                                    let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
+                                    div += `<div class="d-flex align-items-center justify-content-between mb-5 list-on-chat" data-id="${v.username}" name="groupChat" style="cursor: pointer">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-circle symbol-50 mr-3">
+                                                            <img alt="Pic" src="${avatarUrl}" />
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
+                                                            <span class="text-muted font-weight-bold font-size-sm">${v.Message}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column align-items-end">
+                                                        <span class="text-muted font-weight-bold font-size-sm">${Math.floor(v.CreateDate)} min</span>
+                                                        <span class="label label-sm label-success">${v.UnreadCount}</span>
+                                                    </div>
+                                                </div>`
+                                });
+                                $('#listGroupChat').append(div)
 
-                        var firstchat = $('div[name="groupChat"]').first();
-                        var id = firstchat.attr("data-id")
-                        recipientUsername = id;
-                        ShowInfoChat(id)
-                        ChangeStatusRead(id)
-                    } else {
+                                var firstchat = $('div[class="list-on-chat"]').first();
+                                var id = firstchat.attr("data-id")
+                                recipientUsername = id;
+                                ShowInfoChat(id)
+                                ChangeStatusRead(id)
+                            } else {
 
-                    }
-                },
-                error: function () {
+                            }
+                        },
+                        error: function () {
 
+                        }
+                    })
                 }
-            })
-        }
 
         //tim kiếm người liên hệ
         $(document).on('keyup', '#accountSearch', function () {
             var acc = $('#accountSearch').val();
             if (acc == "") {
-                ListChat()
+                ListChat("")
             } else {
-                SearchAccount(acc)
+                ListChat(acc)
             }
 
+        })
+
+        $(document).on('keyup', '#teacherSearch', function () {
+            var acc = $('#teacherSearch').val();
+            SearchAccount(acc);
         })
         //chọn người liên hệ để nhắn tin và đăng kí tên sử dụng socket
         $(document).on('click', 'div[name="groupChat"]', function () {
@@ -229,26 +262,26 @@
                 data: { id },
                 success: function (data) {
                     if (data.code === 200) {
-                        $('#listGroupChat').empty();
+                        $('#listTeacher').empty();
                         var div = ``;
                         $.each(data.user, function (k, v) {
                             let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
-                            div += `<div class="d-flex align-items-center justify-content-between mb-5" data-id="${v.username}" name="groupChat">
-                                                  <div class="d-flex align-items-center">
-                                                      <div class="symbol symbol-circle symbol-50 mr-3">
-                                                          <img alt="Pic" src="${avatarUrl}" />
-                                                      </div>
-                                                      <div class="d-flex flex-column">
-                                                          <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
-                                                          <span class="text-muted font-weight-bold font-size-sm">${v.Message}</span>
-                                                      </div>
-                                                  </div>
-                                                  <div class="d-flex flex-column align-items-end">
-                                                      <span class="text-muted font-weight-bold font-size-sm">${Math.floor(v.CreateDate)} min</span>
-                                                  </div>
-                                              </div>`
+                            div += `<div class="d-flex align-items-center justify-content-between mb-5" data-id="${v.username}" name="groupChat" style="cursor: pointer">
+                                                          <div class="d-flex align-items-center">
+                                                              <div class="symbol symbol-circle symbol-50 mr-3">
+                                                                  <img alt="Pic" src="${avatarUrl}" />
+                                                              </div>
+                                                              <div class="d-flex flex-column" style="width: 90px !important">
+                                                                  <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
+                                                                  <span class="text-muted font-weight-bold font-size-sm">${v.Message}</span>
+                                                              </div>
+                                                          </div>
+                                                          <div class="d-flex flex-column align-items-end">
+                                                              <span class="text-muted font-weight-bold font-size-sm">${Math.floor(v.CreateDate)} min</span>
+                                                          </div>
+                                                      </div>`
                         });
-                        $('#listGroupChat').append(div)
+                        $('#listTeacher').append(div)
                     } else {
 
                     }
@@ -273,18 +306,18 @@
                         $.each(data.data, function (k, v) {
                             let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.Sender);
                             div += `<div class="d-flex flex-column mb-5 align-items-${(v.IsMyMessage ? `end` : `start`)}">
-                                                 <div class="d-flex align-items-center">
-                                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                                         <img alt="Pic" src="${avatarUrl}" />
-                                                     </div>
-                                                     <div>
-                                                         <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${(v.Sender)} </a>
-                                                         <span class="text-muted font-size-sm">${Math.floor(v.CreateDate)} min</span>
-                                                     </div>
-                                                 </div>
-                                                 <div class="mt-2 rounded p-5 bg-light-${(v.IsMyMessage ? `success` : `warning`)} text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${v.Message}
-                                                 </div>
-                                             </div>`
+                                                         <div class="d-flex align-items-center">
+                                                             <div class="symbol symbol-circle symbol-40 mr-3">
+                                                                 <img alt="Pic" src="${avatarUrl}" />
+                                                             </div>
+                                                             <div>
+                                                                 <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">${(v.Sender)} </a>
+                                                                 <span class="text-muted font-size-sm">${Math.floor(v.CreateDate)} min</span>
+                                                             </div>
+                                                         </div>
+                                                         <div class="mt-2 rounded p-5 bg-light-${(v.IsMyMessage ? `success` : `warning`)} text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${v.Message}
+                                                         </div>
+                                                     </div>`
                         });
                         $('.messages').append(div)
                         scrollToBottom()
@@ -319,7 +352,7 @@
         let socket = null;
         connectWebSocket()
         function connectWebSocket() {
-            socket = new WebSocket("ws://103.27.239.28:8084");
+            socket = new WebSocket("ws://103.163.118.233:8084");
 
             // Xử lý sự kiện khi WebSocket mở
             socket.onopen = () => {
