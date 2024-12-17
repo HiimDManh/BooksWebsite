@@ -207,11 +207,11 @@
                                 });
                                 $('#listGroupChat').append(div)
 
-                                var firstchat = $('div[class="list-on-chat"]').first();
-                                var id = firstchat.attr("data-id")
-                                recipientUsername = id;
-                                ShowInfoChat(id)
-                                ChangeStatusRead(id)
+                                //var firstchat = $('div.list-on-chat').first();
+                                //var id = firstchat.attr("data-id")
+                                //recipientUsername = id;
+                                //console.log(id);
+                                ShowInfoChat()
                             } else {
 
                             }
@@ -265,13 +265,10 @@
                         $('#listTeacher').empty();
                         var div = ``;
                         $.each(data.user, function (k, v) {
-                            let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
+                            //let avatarUrl = '/User/GetAvatarID?userId=' + encodeURIComponent(v.username);
                             div += `<div class="d-flex align-items-center justify-content-between mb-5" data-id="${v.username}" name="groupChat" style="cursor: pointer">
                                                           <div class="d-flex align-items-center">
-                                                              <div class="symbol symbol-circle symbol-50 mr-3">
-                                                                  <img alt="Pic" src="${avatarUrl}" />
-                                                              </div>
-                                                              <div class="d-flex flex-column" style="width: 90px !important">
+                                                              <div class="d-flex flex-column" style="width: 120px !important">
                                                                   <a class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${v.username}</a>
                                                                   <span class="text-muted font-weight-bold font-size-sm">${v.Message}</span>
                                                               </div>

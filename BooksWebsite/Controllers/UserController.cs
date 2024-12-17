@@ -27,7 +27,7 @@ namespace BooksWebsite.Controllers
                     var ss = (User)Session["user"];
                     if (ss.role == 2)
                     {
-                        var usersCheck = db.Users.Where(x => x.username.Contains(id) && x.username != ss.username).ToList();
+                        var usersCheck = db.Users.Where(x => x.username.Contains(id) && x.username != ss.username).Take(20).ToList();
                         var userMessagesAll = usersCheck.Select(user =>
                         {
                             // Tìm tin nhắn cuối cùng của user trong bảng Chat

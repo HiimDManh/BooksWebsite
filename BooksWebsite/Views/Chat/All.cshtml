@@ -30,7 +30,7 @@
                 </div>
                 <div class="text-center flex-grow-1">
                     <div class="text-dark-75 font-weight-bold font-size-h5" id="nameGroupChat">Phòng Chat Cộng Đồng</div>
-                    <input id="hiddenID" style="display: none" value=""/>
+                    <p id="hiddenID" style="display: none" value=""></p>
                     <div>
                         <span class="label label-sm label-dot label-success"></span>
                         <span class="font-weight-bold text-muted font-size-sm"></span>
@@ -107,7 +107,7 @@
                         var firstchat = $('a.navi-link').first();
                         console.log(firstchat)
                         $('#nameGroupChat').text(firstchat.attr('name'))
-                        $('#hiddenID').val(firstchat.attr('id'))
+                        $('#hiddenID').text(firstchat.attr('id'))
                     } else {
 
                     }
@@ -223,7 +223,7 @@
                         const recipient = parts[1];
                         const privateMessage = parts[3];
                         if (recipient === "NCCD" || sender == username) {
-                            ShowInfoChat()
+                            ShowInfoChat(Number($('#hiddenID').text()))
                             scrollToBottom()
                         }
                         //if (sender == "SERVER") {
@@ -245,7 +245,8 @@
         function sendPrivateMessage(message) {
             if (username != "") {
 
-                var id = $('hiddenID').val();
+                var id = $('#hiddenID').text();
+                console.log(id);
                 const command = `ROOM_MESSAGE|NCCD|${message}|${id}`;
                 socket.send(command);
                 $('#msg').val('')
