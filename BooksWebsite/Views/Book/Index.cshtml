@@ -13,12 +13,91 @@
             <img id="img" />
         </div>
         <div class="select-direction">
-            <div class="button-form" id="bookHref" >
+            <div class="button-form" id="bookHref">
                 <label id="type-book">Đọc sách</label>
             </div>
             <div class="space-between"></div>
             <div class="button-form" id="answerBtn">
-                <label >Trả lời câu hỏi</label>
+                <label>Trả lời câu hỏi</label>
+            </div>
+        </div>
+    </div>
+    <div class="card card-custom card-collapsed col-lg-9" id="kt_card_3">
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class="card-label text-primary">Cảm nhận của người đọc</h3>
+            </div>
+            <div class="card-toolbar">
+                <a id="expandBtn" class="btn btn-icon btn-circle btn-sm btn-light-primary mr-1" data-card-tool="toggle">
+                    <i class="ki ki-arrow-down icon-nm"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">
+                        <span class="nav-icon">
+                            <i class="flaticon2-chat-1"></i>
+                        </span>
+                        <span class="nav-text">Bình luận</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" aria-controls="profile">
+                        <span class="nav-icon">
+                            <i class="flaticon2-layers-1"></i>
+                        </span>
+                        <span class="nav-text">Ghi âm</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content mt-5" id="myTabContent">
+                <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="form-group col-lg-12">
+                        <label class="text-dark fs-3" style="font-size: 1.5rem !important" for="exampleTextarea">Nêu cảm nhận của bạn</label>
+                        <textarea id="commentContent" style="font-size: 1.3rem !important" class="form-control form-control-solid" rows="3"></textarea>
+                    </div>
+                    <a id="sendComment" class="btn btn-success float-end" style="margin-top: -20px; width: 100px; margin-bottom: 40px">
+                        <i class="flaticon2-paperplane"></i> Gửi
+                    </a>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="form-group col-lg-12">
+                        <div class="col-lg-10 mt-lg-5">
+                            <a id="startRecord" class="btn btn-icon btn-light-primary btn-circle mr-2">
+                                <span class="svg-icon svg-icon-2x">
+                                    <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Media\Play.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M9.82866499,18.2771971 L16.5693679,12.3976203 C16.7774696,12.2161036 16.7990211,11.9002555 16.6175044,11.6921539 C16.6029128,11.6754252 16.5872233,11.6596867 16.5705402,11.6450431 L9.82983723,5.72838979 C9.62230202,5.54622572 9.30638833,5.56679309 9.12422426,5.7743283 C9.04415337,5.86555116 9,5.98278612 9,6.10416552 L9,17.9003957 C9,18.1765381 9.22385763,18.4003957 9.5,18.4003957 C9.62084305,18.4003957 9.73759731,18.3566309 9.82866499,18.2771971 Z" fill="#000000" />
+                                        </g>
+                                    </svg><!--end::Svg Icon-->
+                                </span>
+                            </a>
+                            <a id="stopRecord" class="btn btn-icon btn-light-danger btn-circle mr-2">
+                                <span class="svg-icon svg-icon-2x">
+                                    <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Media\Pause.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M8,6 L10,6 C10.5522847,6 11,6.44771525 11,7 L11,17 C11,17.5522847 10.5522847,18 10,18 L8,18 C7.44771525,18 7,17.5522847 7,17 L7,7 C7,6.44771525 7.44771525,6 8,6 Z M14,6 L16,6 C16.5522847,6 17,6.44771525 17,7 L17,17 C17,17.5522847 16.5522847,18 16,18 L14,18 C13.4477153,18 13,17.5522847 13,17 L13,7 C13,6.44771525 13.4477153,6 14,6 Z" fill="#000000" />
+                                        </g>
+                                    </svg><!--end::Svg Icon-->
+                                </span>
+                            </a>
+                        </div>
+                        <audio id="audioPlayback" controls></audio>
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <input type="file" id="voiceFile" name="voiceFile" style="display: none;">
+                            <button id="uploadBtn" class="btn btn-success" disabled style="margin-top: 40px; width: 100px; margin-bottom: 10px">
+                                <i class="flaticon2-paperplane"></i> Gửi
+                            </button>
+                        </form>
+                    </div>                    
+                </div>
+            </div>
+            <div id="commentList" class="col-md-12">
+                
             </div>
         </div>
     </div>
@@ -26,4 +105,51 @@
 
 @section scripts{
     <script src="~/assets/js/Book/book.js"></script>
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        let recordTimeout;
+
+        document.getElementById('startRecord').addEventListener('click', async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = (event) => audioChunks.push(event.data);
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                document.getElementById('audioPlayback').src = audioUrl;
+
+                // Attach blob to file input for submission
+                const fileInput = document.getElementById('voiceFile');
+                const file = new File([audioBlob], "voiceRecording.wav", { type: 'audio/wav' });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
+                document.getElementById('uploadBtn').disabled = false;
+            };
+
+            // Start recording
+            mediaRecorder.start();
+            audioChunks = [];
+            document.getElementById('stopRecord').disabled = false;
+
+            // Set a timer to stop recording after 1 minute
+            recordTimeout = setTimeout(() => {
+                if (mediaRecorder.state === "recording") {
+                    mediaRecorder.stop();
+                    alert("Recording stopped after 1 minute.");
+                    document.getElementById('stopRecord').disabled = true;
+                }
+            }, 30000); // 60 seconds
+        });
+
+        document.getElementById('stopRecord').addEventListener('click', () => {
+            if (mediaRecorder.state === "recording") {
+                mediaRecorder.stop();
+                clearTimeout(recordTimeout); // Cancel the timer
+            }
+            document.getElementById('stopRecord').disabled = true;
+        });
+    </script>
 }

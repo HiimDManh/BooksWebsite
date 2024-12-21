@@ -42,5 +42,6 @@ namespace BooksWebsite.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserBehavior> UserBehaviors { get; set; }
         public virtual DbSet<UserBookAnswer> UserBookAnswers { get; set; }
+        public virtual DbSet<BookReview> BookReviews { get; set; }
     }
 }

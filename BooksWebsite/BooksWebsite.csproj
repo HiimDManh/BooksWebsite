@@ -261,6 +261,9 @@
     <Compile Include="Models\BookQuestion.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookReview.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Chat.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
