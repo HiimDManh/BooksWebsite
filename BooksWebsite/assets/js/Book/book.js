@@ -28,12 +28,17 @@ card.on('reload', function (card) {
 $(document).on('click', '#uploadBtn', function (e) {
     e.preventDefault();
 
-    // Create a FormData object to send file and bookID
+    // Create a FormData object to send the file and bookID
     var formData = new FormData();
     var fileInput = $('#voiceFile')[0].files[0];
 
     if (!fileInput) {
-        toastr.warning("Chưa có dữ liệu!");
+        toastr.warning("Please select a file to upload.");
+        return;
+    }
+
+    if (typeof bookId === 'undefined' || !bookId) {
+        toastr.warning("Book ID is missing.");
         return;
     }
 
@@ -42,21 +47,30 @@ $(document).on('click', '#uploadBtn', function (e) {
 
     // AJAX request to upload the file
     $.ajax({
-        url: '/Book/UploadVoice', // Adjust to your controller action
+        url: '/Book/UploadVoice',
         type: 'POST',
         data: formData,
-        processData: false, // Important for file upload
-        contentType: false, // Important for file upload
+        processData: false, // Prevent jQuery from automatically processing the data
+        contentType: false, // Prevent jQuery from overriding content type
+        beforeSend: function () {
+            $('#uploadStatus').text("Uploading... Please wait.");
+        },
         success: function (response) {
-            $('#uploadStatus').text("Upload successful!");
-            console.log(response);
+            if (response.success) {
+                $('#uploadStatus').text("Upload successful!");
+                toastr.success(response.message);
+            } else {
+                $('#uploadStatus').text("Upload failed.");
+                toastr.error(response.message || "An error occurred.");
+            }
         },
         error: function (xhr, status, error) {
             $('#uploadStatus').text("Upload failed: " + error);
-            console.error(xhr.responseText);
+            toastr.error("An error occurred: " + xhr.responseText);
         }
     });
 });
+
 
 $(document).on('click', '#expandBtn', function () {
     LoadComment();
@@ -74,23 +88,37 @@ function LoadComment() {
             if (data.code == 500)
                 toastr.error(data.message)
             else {
-                var div = ``;
+                let div = ''; // Initialize the variable for the comments or voice HTML
+
                 data.book.forEach((e) => {
                     div += `<div class="media g-mb-30 media-comment">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Image Description">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                        <div class="g-mb-15">
-                            <h5 class="h5 g-color-gray-dark-v1 mb-0 text-primary">${e.UserID}</h5>
-                            <span class="g-color-gray-dark-v4 g-font-size-12">${e.Time}</span>
-                        </div>
+                    <div class="g-mb-15">
+                    <h5 class="h5 g-color-gray-dark-v1 mb-0 text-primary">${e.UserID}</h5>
+                    <span class="g-color-gray-dark-v4 g-font-size-12">${e.Time}</span>
+                    </div>`;
 
-                        <p class="text-dark fs-3 fw-3">
-                            ${e.Comment}
-                        </p>
-                    </div>
-                </div>`
-                })
+                    // Check if Comment is not null or empty
+                    if (e.Comment) {
+                        div += `<p class="text-dark fs-3 fw-3">
+                        ${e.Comment}
+                        </p>`;
+                    }
+                    // Check if Voice exists
+                    else if (e.Voice) {
+                        div += `<audio controls style="width: 60%; margin-top: 20px;">
+                        <source src="/Book/GetVoice?id=${e.Id}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                        </audio>`;
+                    }
+
+                    div += `</div></div>`;
+                });
+
+                // Append the generated HTML to the comment list
                 $('#commentList').append(div);
+
             }
         },
         error: function (data) {

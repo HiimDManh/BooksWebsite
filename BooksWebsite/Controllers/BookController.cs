@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -42,6 +43,7 @@ namespace BooksWebsite.Controllers
                 var book = _entities.BookReviews.Where(b => b.BookID == bookID)
                     .Select(x => new
                     {
+                        x.Id,
                         x.Comment,
                         x.BookID,
                         x.Voice,
@@ -72,11 +74,13 @@ namespace BooksWebsite.Controllers
                         }
 
                         return (new {
+                            x.Id,
                             x.Comment,
                             x.BookID,
                             x.Voice,
                             x.UserID,
                             Time = time,
+                            VoiceUrl = x.Voice != null ? Url.Action("GetVoice", "Book", new { id = x.BookID }) : null, // Assuming GetVoice is the action to get the audio
                         });              
                     }).ToList().OrderBy(t => t.Time);
 
@@ -88,40 +92,64 @@ namespace BooksWebsite.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetVoice(int id)
+        {
+            var voiceRecord = _entities.BookReviews.FirstOrDefault(x => x.Id == id);
+
+            if (voiceRecord == null || voiceRecord.Voice == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound, "Voice not found");
+            }
+
+            return File(voiceRecord.Voice, "audio/mpeg");
+        }
+
+
         [HttpPost]
         public ActionResult UploadVoice(HttpPostedFileBase voiceFile, int bookID)
         {
-            if (voiceFile != null && voiceFile.ContentLength > 0)
+            if (voiceFile == null || voiceFile.ContentLength <= 0)
             {
-                var user = (User)Session["user"];
-                // Save the file to the server
-                var fileName = Path.GetFileName(voiceFile.FileName);
-                var path = Path.Combine(Server.MapPath("~/UploadedVoices"), fileName);
-                voiceFile.SaveAs(path);
+                return Json(new { success = false, message = "No file uploaded or file is empty." });
+            }
 
+            try
+            {
                 // Convert the file to binary for saving in the database
+                byte[] fileBytes;
                 using (var memoryStream = new MemoryStream())
                 {
                     voiceFile.InputStream.CopyTo(memoryStream);
-                    var fileBytes = memoryStream.ToArray();
-
-                    // Save to the database (example using Entity Framework)
-                        var voiceRecord = new BookReview
-                        {
-                            BookID = bookID,
-                            Voice = fileBytes,
-                            UserID = user.username,
-                            Date = DateTime.Now,
-                        };
-                        _entities.BookReviews.Add(voiceRecord);
-                        _entities.SaveChanges();
+                    fileBytes = memoryStream.ToArray();
                 }
 
-                return Json(new { success = true, message = "File uploaded successfully" });
-            }
+                var user = Session["user"] as User;
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User session is invalid. Please log in again." });
+                }
 
-            return Json(new { success = false, message = "File upload failed" });
+                // Save the file to the database
+                var voiceRecord = new BookReview
+                {
+                    BookID = bookID,
+                    Voice = fileBytes,
+                    UserID = user.username,
+                    Date = DateTime.Now,
+                };
+
+                _entities.BookReviews.Add(voiceRecord);
+                _entities.SaveChanges();
+
+                return Json(new { success = true, message = "File uploaded and saved successfully." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "An error occurred: " + ex.Message });
+            }
         }
+
 
         [HttpPost]
         public JsonResult SendPreviewComment(int bookID, string comment)
