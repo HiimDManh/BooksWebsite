@@ -25,6 +25,14 @@ card.on('reload', function (card) {
     }, 2000);
 });
 
+function clearAudio() {
+    const audioElement = document.getElementById("audioPlayback");
+    audioElement.pause();
+    audioElement.currentTime = 0;
+    audioElement.src = '';
+    audioElement.load();
+}
+
 $(document).on('click', '#uploadBtn', function (e) {
     e.preventDefault();
 
@@ -59,6 +67,10 @@ $(document).on('click', '#uploadBtn', function (e) {
             if (response.success) {
                 $('#uploadStatus').text("Upload successful!");
                 toastr.success(response.message);
+                clearAudio();
+                $('#commentList').empty();
+                LoadComment();
+
             } else {
                 $('#uploadStatus').text("Upload failed.");
                 toastr.error(response.message || "An error occurred.");
@@ -106,7 +118,7 @@ function LoadComment() {
                         </p>`;
                     }
                     // Check if Voice exists
-                    else if (e.Voice) {
+                    else {
                         div += `<audio controls style="width: 60%; margin-top: 20px;">
                         <source src="/Book/GetVoice?id=${e.Id}" type="audio/mpeg">
                         Your browser does not support the audio element.
@@ -159,7 +171,8 @@ $(document).on('click', '#sendComment', function () {
                     toastr.error(data.message)
                 else {
                     toastr.success(data.msg)
-                    $('#commentContent').val("")
+                    $('#commentContent').val("");
+                    $('#commentList').empty();
                     LoadComment();
                 }
             },

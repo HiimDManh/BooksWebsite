@@ -46,7 +46,6 @@ namespace BooksWebsite.Controllers
                         x.Id,
                         x.Comment,
                         x.BookID,
-                        x.Voice,
                         x.UserID,
                         x.Date,
                     })
@@ -77,10 +76,8 @@ namespace BooksWebsite.Controllers
                             x.Id,
                             x.Comment,
                             x.BookID,
-                            x.Voice,
                             x.UserID,
                             Time = time,
-                            VoiceUrl = x.Voice != null ? Url.Action("GetVoice", "Book", new { id = x.BookID }) : null, // Assuming GetVoice is the action to get the audio
                         });              
                     }).ToList().OrderBy(t => t.Time);
 
